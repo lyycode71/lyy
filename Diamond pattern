@@ -1,0 +1,27 @@
+#include<stdio.h>
+int main()
+{
+	char diamond[13][13];
+	int i, j;
+	for (i =1; i < 14; i++)
+	{
+		if (i < 13 / 2 + 1)//确定上半部分以及行中轴位置
+		{
+			for (j = 0; j < 13; j++)
+			if (13 / 2 - (i - 1) <= j&&j <= 13/ 2 + (i - 1))//关于列中轴对称，其图像随行增大
+				printf("*");
+			else
+				printf(" ");
+		}
+		else
+		{
+			for (j = 0; j < 13; j++)
+			if (13 / 2 - (13 - i) <= j&&j <= 13 / 2 + (13 - i))//其图像随行减小
+				printf("*");
+			else
+				printf(" ");
+		}
+		printf("\n");
+	}
+	return 0;
+}
