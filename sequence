@@ -1,0 +1,16 @@
+#include<stdio.h>
+int main()
+{
+	int a[] = { 5, 9, 3 };
+	int i, j,t;
+	for (j = 0; j < 3;j++)//输入数组数据
+	for (i = 0; i < 3 - j;i++)//进行数据对比
+	if (a[i] < a[i + 1])
+	{
+		t = a[i]; a[i] = a[i + 1]; a[i + 1] = t;//调整出正确次序
+	}
+	printf("从大到小的顺序：\n");
+	for (i = 0; i < 3; i++)
+		printf("%d\t", a[i]);//输出排序正确的数组
+	return 0;
+}
