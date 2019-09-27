@@ -1,0 +1,57 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+void menu()
+{
+	printf("*****************\n");
+	printf("******1.play*****\n");
+	printf("******2.exit*****\n");
+	printf("*****************\n");
+}
+void game()
+{
+	int random_num = rand() % 100 + 1;//设定随机值范围在1-100内，实现生成随机值
+	int input = 0;
+	while (1)
+	{
+		printf("输入所猜数字>;");
+		scanf("%d", &input);
+		if (input > random_num)
+		{
+			printf("猜大了\n");
+		}
+		else if (input < random_num)
+			printf("猜小了\n");
+		else
+		{
+			printf("恭喜您猜对了\n");
+			break;
+		}
+	}
+}
+int main()
+{
+	int input = 0;
+	srand((unsigned)time(NULL));//在调rand前先使用的srand的生成器，设置一个随机的起点。（给一个无符号的整形（0））
+	                            //使用时间戳，当前时间点和计算机起始时间的差值为秒，time的返回值为整形，
+	                            //则可以使时间戳为srand设置的起点,实现随机数的生成的起点。
+	do
+	{
+		menu();
+		printf("请选择>:");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+			game();
+			break;
+		case 2:
+			break;
+		default:
+			printf("选择错误，重新输入！\n");
+			break;
+		}
+	} while (input);
+	return 0;
+}
