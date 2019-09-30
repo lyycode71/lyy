@@ -1,0 +1,21 @@
+#include<stdio.h>
+int table(int n)
+{
+	int i, j, a;
+	for (i = 1; i <= n; i++)
+	{
+		for (j = 1; j <= i; j++)
+		{
+			a = i*j;
+			printf("%dx%d=%d\t", j, i, a);
+		}printf("\n");
+	}
+}
+int main()
+{
+	int n;
+	printf("one number：\n");
+	scanf_s("%d", &n);
+	table(n);
+	return 0;
+}
