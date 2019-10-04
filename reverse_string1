@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<string.h>
+int m_strlen(char*str)
+{
+	if (*str == '\0')
+		return 0;
+	else
+		return 1 + m_strlen(str + 1);
+}
+int reverse_string(char*string)
+{
+	int le = m_strlen(string);
+	if (le <= 1)
+		return;
+	else
+	{
+		char tmp = string[0];
+		string[0] = string[le - 1];
+		string[le - 1] = '\0';
+		reverse_string(string+1);
+		string[le - 1] = tmp;
+	}
+}
+int main()
+{
+	char c[] = "abcd";
+	reverse_string(c);
+	printf("%s\n", c);
+	getchar();
+	return 0;
+}
