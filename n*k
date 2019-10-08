@@ -1,0 +1,20 @@
+#include<stdio.h>
+int nk(int n,int k)
+{
+	if (k ==1)
+		return n;
+	else
+	{
+			return n*nk(n, k-1);
+	}
+}
+int main()
+{
+	int n, k,c;
+	printf("输入一个数和其次方数");
+	scanf_s("%d %d", &n, &k);
+	int nk(int n, int k);
+	c = nk(n, k);
+	printf("%d", c);
+	return 0;
+}
