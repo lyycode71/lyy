@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<string.h>
+int m_strlen(char*string)
+{
+	int count = 0;
+	while (*string != '\0')
+	{
+		count++;
+		string++;
+	}
+	return count;
+}
+int m_strlen(char*string)
+{
+	if (*string == '\0')
+		return 0;
+	else
+		return 1+m_strlen(string + 1);
+}
+int main()
+{
+	int len = m_strlen("abcd");
+	printf("%d\n", len);
+	return 0;
+}
