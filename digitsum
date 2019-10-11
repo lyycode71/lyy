@@ -1,0 +1,17 @@
+#include<stdio.h>
+int digitsum(n)
+{
+	int sum = 0;
+	if (n > 0)
+	{
+		sum = n % 10;
+		sum=sum+digitsum(n / 10);
+	}
+	return sum;
+}
+int main()
+{
+	int m = digitsum(1729);
+	printf("%d\n", m);
+	return 0;	
+}
