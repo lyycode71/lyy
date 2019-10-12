@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define Row 3
+#define Col 3
+
+void Initboard(char board[Row][Col],int row,int col);
+void Displayboard(char board[Row][Col], int row, int col);
+void Computermove(char board[Row][Col],int row,int col);
+void Playermove(char board[Row][Col],int row,int col);
+char Iswin(char board[Row][Col], int row, int col);
+int Isfull(char board[Row][Col], int row, int col);
+
+void menu()
+{
+	printf("************************\n");
+	printf("*******  1.play  *******\n");
+	printf("*******  0.exit  *******\n");
+	printf("************************\n");
+}
+void game()
+{
+	int choice = 0;
+	char ret = 0;
+	char board[Row][Col] = { 0 };
+	Initboard(board, Row, Col);
+	Displayboard(board, Row, Col);
+	do
+	{
+		printf("选择1.玩家先手 2.电脑先手 >");
+		scanf("%d", &choice);
+		if (choice == 1 || choice == 2)
+			break;
+		else
+			printf("输入错误，请重新输入选择！");
+	} while (1);
+	while (choice==1)
+	{
+        Playermove(board,Row,Col);
+		ret = Iswin(board, Row, Col);
+		if (ret != 'C')
+			break;
+		Displayboard(board, Row, Col);
+		Computermove(board,Row,Col);
+		ret=Iswin(board,Row,Col);
+		if (ret != 'C')
+			break;
+		Displayboard(board, Row, Col);
+		
+	}
+	while (choice == 2)
+	{
+		Computermove(board, Row, Col);
+		ret = Iswin(board, Row, Col);
+		if (ret != 'C')
+			break;
+		Displayboard(board, Row, Col);
+		Playermove(board, Row, Col);
+		ret = Iswin(board, Row, Col);
+		if (ret != 'C')
+			break;
+		Displayboard(board, Row, Col);
+	}
+
+	if (ret == '#')
+	{
+		printf("电脑赢\n");
+	}
+	else if (ret == '*')
+	{
+		printf("玩家赢\n");
+	}
+	else if (ret == 'Q')
+	{
+		printf("平局\n");
+	}
+	Displayboard(board, Row, Col);
+}
+int main()
+{
+	int input = 0;
+	srand((unsigned int)time(NULL));
+	do
+	{
+		menu();
+		printf("请选择：>");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+			game();
+			break;
+		case 0:
+			printf("退出游戏\n");
+			break;
+		default:
+			printf("输入错误，请重新输入！\n");
+			break;
+		}
+	} while (input);
+	return 0;
+}
