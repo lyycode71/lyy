@@ -25,7 +25,7 @@ char Iswin(char board[Row][Col], int row, int col)
 		if (k == Key)
 		{
 			k = 0;
-			return board[i][j];
+			return board[j][i];
 		}
 		
 	}k = 0;
