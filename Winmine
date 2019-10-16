@@ -1,0 +1,150 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+//#include<string.h>
+
+#define Key 80
+#define Row 9
+#define Col 9
+#define Rows Row+2
+#define Cols Col+2
+
+void Init(char arr[Rows][Cols], int rows, int cols,char set);
+void SetMine(char arr[Rows][Cols], int row, int col);
+void Display(char arr[Rows][Cols], int row, int col);
+void FindMine(char mine[Rows][Cols],char show[Rows][Cols], int row, int col);
+int GetMineCount(char mine[Rows][Cols], int x, int y);
+
+void Init(char arr[Rows][Cols], int rows, int cols,char set)
+{
+	int i = 0, j = 0;
+	for (i = 0; i < rows; i++)
+	{
+		for (j = 1; j < cols; j++)
+		{
+			arr[i][j] = set;
+		}
+	}
+}
+void Display(char arr[Rows][Cols], int row, int col)
+{
+	int i = 0, j = 0;
+	for (i = 0; i <= col; i++)
+	{
+		printf("%d ", i);
+	}
+	printf("\n");
+	for (i = 1; i <= row; i++)
+	{
+		printf("%d ", i);
+		for (j = 1; j <= col; j++)
+		{
+			printf("%c ", arr[i][j]);
+		}
+		printf("\n");
+	}
+}
+void SetMine(char arr[Rows][Cols], int row, int col)
+{
+	int count = Key;
+	while (count)
+	{
+	 int x = rand() %row+1;
+	 int y = rand() %col+1;
+	 if (arr[x][y] == '0')
+	 {	
+		arr[x][y] = '1';
+		count--;
+	 }
+	}
+}
+void FindMine(char mine[Rows][Cols],char show[Rows][Cols], int row, int col)
+{
+	int x = 0, y = 0;
+	int win = 0;
+	while (win<row*col-Key)
+	{
+		printf("请输入坐标：>");
+	    scanf("%d%d", &x, &y);
+	     if (x >= 1 && x <= row&&y >=1 && y <= col)
+	   {
+			 if (mine[x][y] == '1')
+			 {
+				 printf("很遗憾，你炸死了！\n");
+				 Display(mine, row, col);
+				 break;
+			 }
+			 else
+			 {
+				 int count = GetMineCount(mine, x, y);
+				 show[x][y] = count + '0';
+				 Display(show, row, col);
+				 win++;
+			 }
+	    }
+	    else
+	   {
+		printf("坐标输入有误，请重新输入！");
+	   }
+	}	
+	if(win == row*col - Key)
+	{
+		printf("恭喜！排雷成功。\n");
+	}
+}
+int GetMineCount(char mine[Rows][Cols], int x, int y)
+{
+ return mine[x - 1][y] +
+		mine[x - 1][y - 1] +
+		mine[x][y - 1] +
+		mine[x + 1][y - 1] +
+		mine[x + 1][y] +
+		mine[x + 1][y + 1] +
+		mine[x][y + 1] +
+		mine[x - 1][y + 1] - 8 * '0';
+}
+
+menu()
+{
+	printf("*********************\n");
+	printf("****   1.play    ****\n");
+	printf("****   0.exit    ****\n");
+	printf("*********************\n");
+}
+void game()
+{
+	char mine[Rows][Cols] = { 0 };
+	char show[Rows][Cols] = { 0 };
+	Init(mine, Rows, Cols,'0');
+	Init(show, Rows, Cols,'*');
+	//Display(mine, Row, Col);
+	Display(show, Row, Col);
+	SetMine(mine, Row, Col);
+	Display(mine, Row, Col);
+	FindMine(mine,show, Row, Col);
+}
+int main()
+{
+	int input = 0;
+	srand((unsigned int)time(NULL));
+	do
+	{
+		menu();
+		printf("请选择：>");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+			game();
+			break;
+		case 0:
+			printf("退出游戏\n");
+			break;
+		default:
+			printf("输入错误，请重新输入！\n");
+			break;
+		}
+
+	} while (input);
+	return 0;
+}
