@@ -1,0 +1,31 @@
+#include<stdio.h>
+int word(int a)
+{
+	if (a > 9)
+	{
+		word(a / 10);
+	}
+	printf("%d\n", a % 10);
+}
+int main()
+{
+	 word(19);
+	return 0;
+}
+#include<stdio.h>
+int bits(int a,int b)
+{
+	int num = 0;
+	int t = a^b;
+	while (t)
+	{
+		++num;
+		t &= (t - 1);
+	}
+	return num;
+}
+int main()
+{
+	int c = bits(1999, 2299);
+	printf("%d\n", c);
+}
