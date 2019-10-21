@@ -1,0 +1,59 @@
+void game()
+{
+
+	char mine[Rows][Cols] = { 0 };
+	char show[Rows][Cols] = { 0 };
+	Init(mine, Rows, Cols, '0');
+	Init(show, Rows, Cols, '*');
+//	Display(mine, Row, Col);
+	Display(show, Row, Col);
+	SetMine(mine, Row, Col, Key);
+	Display(mine, Row, Col);
+//	FindMine(mine, show, Row, Col);
+ //}
+	//void FindMine(char mine[Rows][Cols], char show[Rows][Cols], int row, int col)
+//	{
+		int x = 0, y = 0;
+		int win = 0;
+		while (win<Row*Col - Key)
+		{
+			printf("请输入坐标：>");
+			scanf("%d%d", &x, &y);
+
+			if (x >= 1 && x <= Row&&y >= 1 && y <= Col)
+			{
+				if (mine[x][y] == '1')
+				{
+					if (win != 0)
+					{
+						printf("很遗憾，你炸死了！\n");
+						Display(mine, Row, Col);
+						break;
+					}
+					else
+					{
+						mine[x][y] = '0';
+						SetMine(mine, Row, Col, 1);
+						Display(mine, Row, Col);
+						printf("\n");
+						Expand(mine, show, x, y, &win);
+
+					}
+				}
+				else
+				{
+					Expand(mine, show, x, y, &win);
+				}
+				Display(show, Row, Col);
+			}
+			else
+			{
+				printf("坐标输入有误，请重新输入！");
+			}
+		
+		if (win == Row*Col - Key)
+		{
+			printf("恭喜！排雷成功。\n");
+		}
+	}
+}
