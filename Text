@@ -1,0 +1,32 @@
+#include<stdio.h>
+
+int main()
+{
+	int n = 0, m = 0;
+	while (scanf("%d %d", &m, &n) != EOF);
+	{
+		int count = 0;
+		while (m)
+		{
+			count += m%n;
+			m /= n;
+		}
+		int arr[32] = { 0 };
+		int i = 0;
+		while (count)
+		{
+			arr[i] = count%n;
+			i++;
+			count /= n;
+		}
+		while (--i >= 0)
+		{
+			if (arr[i] < 10)
+				printf("%d", arr[i]);
+			else
+				printf("%c", arr[i] - 10 + 'A');
+		}
+		printf("\n");
+	}
+	return 0;
+}
