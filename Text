@@ -3,7 +3,8 @@
 int main()
 {
 	int n = 0, m = 0;
-	while (scanf("%d %d", &m, &n) != EOF);
+	scanf("%d %d", &m, &n)；
+	while ( (m||n)!= EOF);
 	{
 		int count = 0;
 		while (m)
