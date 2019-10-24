@@ -1,3 +1,14 @@
+int GetMineCount(char mine[Rows][Cols], int x, int y)
+{
+ return mine[x - 1][y] +
+		mine[x - 1][y - 1] +
+		mine[x][y - 1] +
+		mine[x + 1][y - 1] +
+		mine[x + 1][y] +
+		mine[x + 1][y + 1] +
+		mine[x][y + 1] +
+		mine[x - 1][y + 1] - 8 * '0';
+}
 void Expand(char mine[Rows][Cols],char show[Rows][Cols], int row, int col,int *num)
 {
 	int x = 0, y = 0;
