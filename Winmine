@@ -14,6 +14,7 @@ void SetMine(char arr[Rows][Cols], int row, int col);
 void Display(char arr[Rows][Cols], int row, int col);
 void FindMine(char mine[Rows][Cols],char show[Rows][Cols], int row, int col);
 int GetMineCount(char mine[Rows][Cols], int x, int y);
+void Expand(char mine[Rows][Cols], char show[Rows][Cols], int row, int col, int *num);
 
 void Init(char arr[Rows][Cols], int rows, int cols,char set)
 {
