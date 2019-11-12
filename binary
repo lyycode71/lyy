@@ -20,7 +20,7 @@ int bits(int a,int b)
 	while (t)
 	{
 		++num;
-		t &= (t - 1);//按位与的结果，还是得思考下
+		t &= (t - 1);//按位与的结果，取最后一位码
 	}
 	return num;
 }
