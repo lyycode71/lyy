@@ -17,7 +17,7 @@ void hanoi(int n, char one, char two, char three)
 	{
 		hanoi(n - 1, one, three, two);
 		move(n, one, three);
-		hanoi(n - 1, two, one, three);//换柱子再次进行移动盘子
+		hanoi(n - 1, two, one, three);//借助柱子再次进行移动盘子
 
 	}
 }
