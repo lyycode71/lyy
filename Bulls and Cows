@@ -11,7 +11,7 @@ void menu()
 }
 void game()
 {
-	int random_num = rand() % 100 + 1;//设定随机值范围在1-100内，实现生成随机值
+	int random_num = rand() % 100 + 1;//设定随机值范围在1-100内，实现真正意义上的生成随机值
 	int input = 0;
 	while (1)
 	{
