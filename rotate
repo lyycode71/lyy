@@ -1,0 +1,21 @@
+class solation{
+public void reverse(int[] nums,int s,int e){
+  int key;
+  while(e>s){
+    key=nums[s];
+    nums[s]=nums[e];
+    nums[e]=key;
+    s++;
+    e--;
+  }
+}
+public void rotate(int[] nums,int k){
+  if(nums.length<2)
+    return;
+  k%=nums.length;
+  l=nums.length-1;
+  reverse(nums,0,l);
+  reverse(nums,0,k-1);
+  reverse(nums,k,l);
+}
+}
