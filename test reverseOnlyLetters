@@ -1,0 +1,24 @@
+class Solution {
+    public String reverseOnlyLetters(String S) {
+        int a=S.length()-1;
+        char[] s=S.toCharArray();
+        int i=0;
+        while(i<a){
+            if(('A'<=s[i]&&s[i]<='Z')||('a'<=s[i]&&'z'>=s[i])){
+                if(('A'<=s[a]&&s[a]<='Z')||('a'<=s[a]&&'z'>=s[a])){
+                    char b;
+                    b=s[i];
+                    s[i]=s[a];
+                    s[a]=b;
+                    i++;
+                    a--;
+                }else{
+                    a--;
+                }
+            }else{
+                i++;
+            }
+        }
+        return new String(s);
+    }
+}
