@@ -1,0 +1,27 @@
+class Solution {
+    public int myAtoi(String str) {
+        long n=0;
+        boolean f=true;
+        boolean k=false;;
+        for(int i=0;i<str.length();i++){
+            if(k==false&&(str.charAt(i)=='-'||str.charAt(i)=='+')){
+                f=str.charAt(i)=='-'?false:true;
+                k=true;
+            }else if(Character.isDigit(str.charAt(i))){
+                int a=str.charAt(i)-'0';
+                n=n*10+a;
+                if(n>Integer.MAX_VALUE){
+                    if(!f)return Integer.MIN_VALUE;
+                    return Integer.MAX_VALUE;
+                }
+                k=true;
+            }
+            else if(str.charAt(i)>30){
+                if(k==false&&str.charAt(i)==' ')continue;
+                break;
+            }
+
+        }
+        return f==true?(int)n:(int)-n;
+    }
+}
