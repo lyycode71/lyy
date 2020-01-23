@@ -1,0 +1,21 @@
+class Solution {
+    public int findUnsortedSubarray(int[] nums) {
+        int[] num=nums.clone();
+        Arrays.sort(num);
+        int k=0;
+        int i=0,j=nums.length-1;
+        while(i<j){
+            if(num[i]!=nums[i]){
+                if(num[j]!=nums[j]){
+                    k=j-i+1;
+                    break;
+                }else{
+                    j--;
+                }
+            }else{
+                i++;
+            }
+        }
+        return k;
+    }
+}
