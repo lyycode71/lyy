@@ -1,0 +1,22 @@
+
+  public class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode(int x) { val = x; }
+  }
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> rig=new ArrayList<>();
+        getRight(root,rig,0);
+        return rig;
+    }
+    private void getRight(TreeNode root,List<Integer> rig,int dep){
+        if(root==null)return;
+        if(dep==rig.size()){
+            rig.add(root.val);
+        }
+        getRight(root.right,rig,dep+1);
+        getRight(root.left,rig,dep+1);
+    }
+}
