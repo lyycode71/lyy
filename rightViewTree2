@@ -1,0 +1,22 @@
+public List<Integer> rightTree(TreeNode root){
+ List<Integer> ret=new ArrayList<>();
+ if(root==null)return ret;
+ Queue<Integer> queue=new LinkedList<>();
+ queue.add(root);
+ while(!queue.isEmpty()){
+  int count=queue.size();
+  while(count>0){
+   count--;
+   TreeNode cur=queue.poll();
+   if(count==0){
+    ret.add(root.val);
+   }
+   if(cur.left!=null){
+    queue.add(cur.left);
+   }
+   if(cur.right!=null){
+    queue.add(cur.right);
+   }
+  }
+  return ret;
+}
