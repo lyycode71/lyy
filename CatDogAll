@@ -1,0 +1,47 @@
+public class CatDogAsylum {
+    public ArrayList<Integer> asylum(int[][] ope) {
+        ArrayList<Integer> li=new ArrayList<Integer>();
+        Queue<Integer> c=new LinkedList<Integer>();
+        Queue<Integer> d=new LinkedList<Integer>();
+        Queue<Integer> a=new LinkedList<Integer>();
+        int tmp;
+        for(int i=0;i<ope.length;i++){
+            if(ope[i][0]==1){
+                int n=ope[i][1];
+                if(n>0){
+                    d.add(n);
+                    a.add(n);
+                }else if(n<0){
+                    c.add(n);
+                    a.add(n);
+                }
+            }else if(ope[i][0]==2){
+                int m=ope[i][1];
+                if(m==0){
+                    if(!a.isEmpty()){
+                       tmp=a.poll();
+                       li.add(tmp);
+                       if(tmp>0){
+                          d.poll();
+                       }else if(tmp<0){
+                          c.poll();
+                       }    
+                    }
+                }else if(m==1){
+                    if(!d.isEmpty()){
+                        tmp=d.poll();
+                        li.add(tmp);
+                        a.remove(tmp);
+                    }
+                }else if(m==-1){
+                    if(!c.isEmpty()){
+                        tmp=c.poll();
+                        li.add(tmp);
+                        a.remove(tmp);
+                    }
+                }
+            }
+        }
+        return li;
+    }
+}
