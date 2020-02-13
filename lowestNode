@@ -1,0 +1,38 @@
+public class solution{
+ public boolean getPath(TreeNode root,TreeNode t,Stack s){
+  s.push(root);
+  if(root==t){
+   return true;
+  }
+  if(getPath(root.left,t,s))
+   return true;
+  if(getPath(root.right,t,s))
+   return true;
+  else{
+   s.pop();
+   return false;
+  }
+ }
+ public TreeNode lowest(TreeNode root,TreeNode p,TreeNode q){
+  Stack<Integer> path1=new Stack<>();
+  Stack<Integer> path2=new Stack<>():
+  getPath(root,p,path1);
+  getPath(root,q,path2);
+  while(path1.size()!=path2.size()){
+   if(path1.size()>path2.size()){
+    path1.pop();
+   }else{
+    path2.pop();
+   }
+  }
+  while(path1.size()!=0){
+   if(path1.peek()!=path2.peek){
+    path1.pop();
+    path2.pop();
+   }else{
+    break;
+   }
+   return path1.pop();
+  }
+ }
+}
