@@ -1,0 +1,24 @@
+public class solution{
+ static int curId=0;
+ public TreeNode range(int[] pre,int[] in,int s,int e){
+  if(s>e){
+   return null;
+  }
+  int intVal=pre[curId++];
+  TreeNode root=new TreeNode(intVal);
+  if(s==e){
+   return root;
+  }
+  for(int i=s;i<e;i++){
+   if(in[i]==intVal){
+    break;
+   }
+   root.left=range(pre,in,s,i-1);
+   root.right=range(pre,in,i+1,e);
+  }
+  return root;
+ }
+ public TreeNode buildTree(int[] pre,int[] inorder){
+  curId=0;
+  return range(pre,inorder,0,pre.length-1);
+ }
