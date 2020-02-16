@@ -1,0 +1,24 @@
+public class solution{
+ static TreeNode pre=null;
+ public void change(TreeNode root){
+  if(root==null)return;
+  change(root.left);
+  root.left=pre;
+  if(pre!=null){
+   pre.right=root;
+  }
+  pre=root;
+  change(root.right);
+ }
+ public TreeNode Convert(TreeNode pRootOfTree){
+  if(pRootOfTree==null){
+   return null;
+  }
+  pre=null;
+  change(pRootOfTree);
+  while(pRootOfTree!=null){
+   pRootOfTree=pRootOfTree.left;
+  }
+  return pRootOfTree;
+ }
+}
