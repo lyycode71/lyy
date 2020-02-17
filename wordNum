@@ -1,0 +1,38 @@
+class Solution {
+    public int compress(char[] chars) {
+        if(chars.length<2){
+            return 1;
+        }
+        int n=1,s=0;
+        char pre=chars[0];
+        for(int i=1;i<chars.length;i++){
+           if(chars[i]==chars[i-1]){
+               n++;
+           } else{
+               chars[s]=pre;
+               if(n==1){
+                   s++;
+               }else{
+                   s++;
+                   char[] num=String.valueOf(n).toCharArray();
+                   for(int j=0;j<num.length;j++){
+                       chars[s++]=num[j];
+                   }
+                   n=1;
+               }
+               pre=chars[i];  
+           }
+        }
+        chars[s]=pre;
+        if(n==1){
+            s++;
+        }else{
+            s++;
+            char[] num=String.valueOf(n).toCharArray();
+            for(int j=0;j<num.length;j++){
+                chars[s++]=num[j];
+            }
+        }
+        return s;
+    }
+}
