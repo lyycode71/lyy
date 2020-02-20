@@ -1,0 +1,50 @@
+class node{
+ int val;
+ node next;
+ node(int val,node next){
+  this.val=val;
+  this.node=node;
+ }
+ node(int val){
+  this(val,null);
+ }
+}
+public class mQueue{
+ private node head=null;
+ private node end=null;
+ private size=0;
+ public void offer(int v){
+  node nNode=new node(v);
+  if(end==null){
+   head=nNode;
+  }else{
+   end.next=nNode;
+  }
+  end=nNode;
+  size++;
+ }
+ public int poll(){
+  if(size==0){
+   throw new RuntimeException("没有元素");
+  }
+  int n= head.val;
+  head=head.next;
+  if(head==null){
+   end=null;
+  }
+  size--;
+  return n;
+ }
+ public int peek(){
+  if(size==0){
+   throw new RuntimeException("没有元素");
+  }
+  return head.val;
+ }
+ public boolean isEmpty(){
+  return size==0;
+ }
+ public int size(){
+  return size;
+ }
+} 
