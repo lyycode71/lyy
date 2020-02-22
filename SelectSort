@@ -1,0 +1,26 @@
+public static void selectSort(int[] array){
+ int low=0;
+ int high=array.length-1;
+ while(low<=high){
+  int min=low;
+  int max=low;
+  for(int i=low+1;i<=max;i++){
+   if(array[i]<array[min]){
+    min=i;
+   }
+   if(array[i]>array[max]){
+    max=i;
+   }
+  }
+  swap(array,min,low){
+   if(max==low){
+    max=min;
+   }
+   swap(array,max,high)
+  }
+ }
+ private void swap(int[] array,int i,int j){
+  int n=array[i];
+  array[i]=array[j];
+  array[j]=n;
+ }
