@@ -1,0 +1,21 @@
+class soution{
+ public string addBinary(String a,String b){
+  if(a.length()==0){           
+   return b;       
+  }else if(b.length()==0){    
+   return a;       
+  }       
+  int n=a.length()-1;       
+  int m=b.length()-1;       
+  StringBuilder st=new StringBuilder();       
+  int c=0;       
+  while(n>=0||m>=0){          
+   if(n>=0)c+=a.charAt(n--)-'0';          
+   if(m>=0)c+=b.charAt(m--)-'0';         
+   st.append(c%2);         
+   c>>=1;      
+  }       
+  String k=st.reverse().toString();
+  return c>0?'1'+k:k;
+ }
+}
