@@ -1,0 +1,32 @@
+class solution{
+ public class longestPath{
+  if(matrix.length==0||matrix[0].length==0){  
+   return 0;
+  } 
+  int max=0; 
+  int row=matrix.length;
+  int col=matrix[0].length; 
+  int[][] dp=new int[row][col]; 
+  for(int i=0;i<row;i++){   
+   for(int j=0;j<col;j++){     
+    max=Math.max(max,loop(matrix,Integer.MIN_VALUE,dp,i,j);  
+   }
+  }
+  return max;
+ }
+ private int loop(int[][] ma,int pre,int[][] dp,int i,int j){
+  if(i<0||j<0||i>=ma.length||j>=ma[0].length||ma[i][j]<=pre){ 
+   return 0;
+  }
+  if(dp[i][j]!=0){ 
+   return dp[i][j];
+  }
+  int max=0; 
+  max=Math.max(max,loop(ma,ma[i][j],dp,i+1,j)); 
+  max=Math.max(max,loop(ma,ma[i][j],dp,i-1;j)); 
+  max=Math.max(max,loop(ma,ma[i][j],dp,i,j-1));
+  max=Math.max(max.loop(ma,ma[i][j],dp,i,j+1));
+  dp[i][j]=max+1; 
+  return dp[i][j];
+ }
+}
