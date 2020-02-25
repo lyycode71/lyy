@@ -1,0 +1,50 @@
+public class inOrder {
+    public void righ(Node root){
+        Stack<Node> st=new Stack<>();
+        Node cur=root;
+        while(cur!=null||!st.isEmpty()){
+            while(cur!=null){
+                st.push(cur);
+                cur=cur.left;
+            }
+            cur=st.pop();
+            System.out.println(cur.val);
+            cur=cur.right;
+        }
+        System.out.println( );
+    }
+    public void prOrder(Node root){
+        Stack<Node> st=new Stack<>();
+        Node cur=root;
+        while(cur!=null||!st.isEmpty()){
+            while(cur!=null){
+                System.out.println(cur.val);
+                st.push(cur);
+                cur=cur.left;
+            }
+            cur=st.pop();
+            cur=cur.right;
+        }
+        System.out.println( );
+    }
+    public void postOrder(Node root){
+        Stack<Node> st=new Stack<>();
+        Node cur=root;
+        Node pre=null;
+        while(cur!=null||!st.isEmpty()){
+            while(cur!=null){
+                st.push(cur);
+                cur=cur.left;
+            }
+            cur=st.peek();
+            if(cur.right!=null||cur.right==pre){
+                System.out.println(cur.val);
+                pre=cur;
+                st.pop();
+                cur=null;
+            }else{
+                cur=cur.right;
+            }
+        }
+        System.out.println( );
+    }
