@@ -1,0 +1,72 @@
+public class tree {
+    public static void swap(int[] arr,int i,int j){
+        int a=arr[i];
+        arr[i]=arr[j];
+        arr[j]=a;
+    }
+    public static void shiftBig(int[] arr,int sz,int parent){
+        int child=2*parent+1;
+        while(child<sz){
+            if(child+1<sz&&arr[child+1]>arr[child]){
+                ++child;
+            }
+            if(arr[child]>arr[parent]){
+                swap(arr,child,parent);
+                parent=child;
+                child=2*parent+1;
+            }else{
+                break;
+            }
+        }
+    }
+    public static void shiftsmall(int[] arr,int sz,int parent){
+        int child=2*parent+1;
+        while(child<sz){
+            if(child+1<sz&&arr[child+1]<arr[child]){
+                ++child;
+            }
+            if(arr[child]<arr[parent]){
+                swap(arr,child,parent);
+                parent=child;
+                child=2*parent+1;
+            }else{
+                break;
+            }
+        }
+    }
+    public static void creatB(int[] arr){
+        for(int i=(arr.length-2)/2;i>=0;i--){
+            shiftBig(arr,arr.length,i);
+        }
+    }
+    public static void creatS(int[] arr){
+        for(int i=(arr.length-2)/2;i>=0;i--){
+            shiftsmall(arr,arr.length,i);
+        }
+    }
+    public static void shiftUB(int[] arr,int sz,int child){
+        int parent=(child-1)/2;
+        while(child>0){
+            if(arr[child]>arr[parent]){
+                swap(arr,child,parent);
+                child=parent;
+                parent=(child-1)/2;
+            }else{
+                break;
+            }
+        }
+    }
+
+    public static void shiftUS(int[] arr,int sz,int child){
+        int parent=(child-1)/2;
+        while(child>0){
+            if(arr[child]<arr[parent]){
+                swap(arr,child,parent);
+                child=parent;
+                parent=(child-1)/2;
+            }else{
+                break;
+            }
+        }
+    }
+}
