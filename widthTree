@@ -1,0 +1,29 @@
+class Solution {
+    public int widthOfBinaryTree(TreeNode root) {
+        if(root==null)return 0;
+        Queue<TreeNode> qu=new LinkedList<>();
+        LinkedList<Integer> list=new LinkedList<>();
+        qu.add(root);
+        int res=1;
+        list.add(1);
+        while(!qu.isEmpty()){
+            int count=qu.size();
+            for(int i=count;i>0;i--){
+                TreeNode cur=qu.poll();
+                Integer index=list.removeFirst();
+                if(cur.left!=null){
+                    qu.add(cur.left);
+                    list.add(index*2);
+                }
+                if(cur.right!=null){
+                    qu.add(cur.right);
+                    list.add(index*2+1);
+                }
+            }
+            if(list.size()>=2){
+                res=Math.max(res,list.getLast()-list.getFirst()+1);
+            }
+        }
+        return res;
+    }
+}
