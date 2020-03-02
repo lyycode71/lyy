@@ -1,0 +1,28 @@
+ class Solution {
+    private int sum(int[]arr){
+        return arr[0]+arr[1];
+    }
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> li=new ArrayList<>();
+        PriorityQueue<int[]> p=new PriorityQueue<>((e1,e2)->sum(e1)-sum(e2));
+        for(int i=0;i<nums1.length;i++){
+            for(int j=0;j<nums2.length;j++){
+                int[] arr={nums1[i],nums2[j]};
+                if(p.size()<=k){
+                    p.add(arr);
+                }else if(p.size()>=k&&sum(arr)<sum(p.peek())){
+                    p.poll();
+                    p.add(arr);
+                }
+            }
+        }
+        while(!p.isEmpty()){
+            LinkedList<Integer> list=new LinkedList<>();
+            int[] arr=p.poll();
+            list.add(arr[0]);
+            list.add(arr[1]);
+            li.add(list);
+        }
+        return li;
+    }
+}
