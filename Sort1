@@ -1,0 +1,70 @@
+   public static void swap(int[] arr,int a,int b){
+        int k=arr[a];
+        arr[a]=arr[b];
+        arr[b]=k;
+    }
+    public static void shiftDBig(int[] arr,int sz,int parent){
+        int child=parent*2+1;
+        while(child<sz){
+            if(child+1<sz&&arr[child+1]>arr[child]){
+                ++child;
+            }//选出子节点中大的那个
+            if(arr[child]>arr[parent]){//与父节点交换
+                swap(arr,child,parent);
+                parent=child;
+                child=2*parent+1;
+            }else{
+                break;
+            }
+        }
+    }
+    public static void shiftSort(int[] arr){
+        int len=arr.length;
+        for(int i=(len-2)/2;i>=0;--i){
+            shiftDBig(arr,len,i);
+        }
+        int end=len-1;//未排序
+        while(end>0){
+            swap(arr,0,end);//进行排序
+            shiftDBig(arr,end,0);
+            --end;
+        }
+    }
+    public static int partion(int[] arr,int start,int end){
+        int key=arr[start];
+        int begin=start;
+        while(start<end){
+            while(start<end&&arr[end]>=key){
+                end--;
+            }
+            while(start<end&&arr[start]<=key){
+                start++;
+            }
+            swap(arr,start,end);
+        }
+        swap(arr,begin,start);
+        return start;
+    }
+    public static void pationSort(int[] arr,int left,int right){
+        if(left<right){
+            int mid=partion(arr,left,right);//分组
+            pationSort(arr,left,mid-1);
+            pationSort(arr,mid+1,right);
+        }
+    }
+    public static void bubbleSort(int[] arr){
+        int len=arr.length;
+        while(len>0){
+            boolean k=true;
+            for(int i=0;i<len-1;i++){
+                if(arr[i]>arr[i+1]){
+                    swap(arr,i,i+1);
+                    k=false;
+                }
+            }
+            if(k){
+                break;
+            }
+            len--;
+        }
+    }
