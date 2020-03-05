@@ -1,0 +1,22 @@
+class Solution {
+    int index;
+    public TreeNode bTree(int[] in,int[] post,int s,int e){
+        if(s>e)return null;
+        int rval=post[index];
+        index--;
+        TreeNode root=new TreeNode(rval);
+        int i;
+        for(i=s;i<=e;i++){
+            if(in[i]==rval){
+                break;
+            }
+        }
+        root.right=bTree(in,post,i+1,e);
+        root.left=bTree(in,post,s,i-1);
+        return root;
+    }
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        index=postorder.length-1;
+        return bTree(inorder,postorder,0,index);
+    }
+}
