@@ -1,0 +1,125 @@
+ public static void swap(int[] arr,int a,int b){
+        int k=arr[a];
+        arr[a]=arr[b];
+        arr[b]=k;
+    }
+ public static int partion(int[] arr,int start,int end){
+        int key=arr[start];
+        int begin=start;
+        while(start<end){
+            while(start<end&&arr[end]>=key){
+                end--;
+            }
+            while(start<end&&arr[start]<=key){
+                start++;
+            }
+            swap(arr,start,end);
+        }
+        swap(arr,begin,start);
+        return start;
+    }
+    public static void pationSort(int[] arr,int left,int right){
+        if(left<right){
+            //int mid=partion(arr,left,right);//分组
+            int mid=pation3(arr,left,right);
+            pationSort(arr,left,mid-1);
+            pationSort(arr,mid+1,right);
+        }
+    }
+    public static int getMid(int[] arr,int left,int right){
+        int mid=(left+right)/2;
+        if(arr[mid]>arr[left]){
+            if(arr[mid]<arr[right]){
+                return mid;
+            }else{
+                if(arr[left]>arr[right])
+                    return left;
+                else
+                    return  right;
+            }
+        }else{
+            if(arr[mid]>arr[right]){
+                return mid;
+            }else{
+                if(arr[left]<arr[right]){
+                    return left;
+                }else
+                    return right;
+            }
+        }
+    }
+    public static void bubbleSort(int[] arr){
+        int len=arr.length;
+        while(len>0){
+            boolean k=true;
+            for(int i=0;i<len-1;i++){
+                if(arr[i]>arr[i+1]){
+                    swap(arr,i,i+1);
+                    k=false;
+                }
+            }
+            if(k){
+                break;
+            }
+            len--;
+        }
+    }
+    public static int pation2(int[] arr,int left,int right){
+        int k=arr[left];//拿出空确位
+        while(left<right){
+            while(left<right&&arr[right]>=k){//右左次序不可交换
+                right--;
+            }
+            arr[left]=arr[right];//补上空缺位
+            while(left<right&&arr[left]<=k){
+                left++;
+            }
+            arr[right]=arr[left];//补位
+        }
+        arr[left]=k;//补位
+        return left;
+    }
+    public static int pation3(int[] arr,int left,int right){
+        int mid=getMid(arr,left,right);
+        swap(arr,left,mid);
+        int key=arr[left];
+        int cur=left+1;//第一个小于k的位置
+        int prev=left;//最后一个小于k的位置
+        while(cur<=right){//如果两个小于k的中间有间隔，其中间为大于k的，将prev与cur交换
+            if(arr[cur]<key&&++prev!=cur){
+                swap(arr,cur,prev);
+            }
+            ++cur;
+        }
+        swap(arr,left,prev);
+        return prev;
+    }
+    public static void quickSort(int[]arr){
+        int left=0;
+        int right=arr.length-1;
+        Stack<Integer> st=new Stack<>();
+        if(left<right){
+            st.push(left);
+            st.push(right);
+        }
+        while(!st.isEmpty()){
+            int right1=st.pop();
+            int left1=st.pop();
+            int mid=pation3(arr,left1,right1);
+            if(mid-1>left1){
+                st.push(left1);
+                st.push(mid-1);
+            }
+            if(mid+1<right1){
+                st.push(mid+1);
+                st.push(right1);
+            }
+        }
+    }
+    public static void quickSort1(int[] arr,int left,int right){
+        if(left<right){
+            int mid=pation3(arr,left,right);
+            quickSort1(arr,left,mid-1);
+            quickSort1(arr,mid+1,right);
+        }
+    }
