@@ -1,0 +1,115 @@
+   public static int getMid(int[] arr,int left,int right){
+        int mid=(left+right)/2;
+        if(arr[mid]>arr[left]){
+            if(arr[mid]<arr[right]){
+                return mid;
+            }else{
+                if(arr[left]>arr[right])
+                    return left;
+                else
+                    return  right;
+            }
+        }else{
+            if(arr[mid]>arr[right]){
+                return mid;
+            }else{
+                if(arr[left]<arr[right]){
+                    return left;
+                }else
+                    return right;
+            }
+        }
+    }
+
+
+    public static int pation3(int[] arr,int left,int right){
+        int mid=getMid(arr,left,right);
+        swap(arr,left,mid);
+        int key=arr[left];
+        int cur=left+1;//第一个小于k的位置
+        int prev=left;//最后一个小于k的位置
+        while(cur<=right){//如果两个小于k的中间有间隔，其中间为大于k的，将prev与cur交换
+            if(arr[cur]<key&&++prev!=cur){
+                swap(arr,cur,prev);
+            }
+            ++cur;
+        }
+        swap(arr,left,prev);
+        return prev;
+    }
+    public static void quickSort(int[]arr){
+        int left=0;
+        int right=arr.length-1;
+        Stack<Integer> st=new Stack<>();
+        if(left<right){
+            st.push(left);
+            st.push(right);
+        }
+        while(!st.isEmpty()){
+            int right1=st.pop();
+            int left1=st.pop();
+            int mid=pation3(arr,left1,right1);
+            if(mid-1>left1){
+                st.push(left1);
+                st.push(mid-1);
+            }
+            if(mid+1<right1){
+                st.push(mid+1);
+                st.push(right1);
+            }
+        }
+    }
+    public static void quickSort1(int[] arr,int left,int right){
+        if(left<right){
+            int mid=pation3(arr,left,right);
+            quickSort1(arr,left,mid-1);
+            quickSort1(arr,mid+1,right);
+        }
+    }
+    public static void merageSort(int[] arr,int left,int right,int[] tmp){
+        if(left>=right){
+            return;
+        }
+        int mid=(left+right)/2;
+        merageSort(arr,left,mid,tmp);
+        merageSort(arr,mid+1,right,tmp);
+        merge(arr,left,mid,right,tmp);
+    }
+    public static void merge(int[] arr,int left,int mid,int right,int[] tmp){
+        int b1=left,e1=mid;
+        int b2=mid+1,e2=right;
+        int idx=left;
+        while(b1<=e1&&b2<=e2){
+            if(arr[b1]<=arr[b2]){
+                tmp[idx++]=arr[b1++];
+            }else{
+                tmp[idx++]=arr[b2++];
+            }
+        }
+        while(b1<=e1){
+            tmp[idx++]=arr[b1++];
+        }
+        while(b2<=e2){
+            tmp[idx++]=arr[b2++];
+        }
+        for(int i=left;i<=right;i++){
+            arr[i]=tmp[i];
+        }
+    }
+    public static void mergeSort2(int[] arr){
+    //非递归实现归并排序
+        for(int i=0;i<arr.length;i=i*2){//进行分组
+            for(int j=0;j<arr.length;j+=i*2){//分组后的数进行排序
+                int left=j;
+                int mid=j+i;
+                if(mid>=arr.length){
+                    continue;
+                }
+                int right=mid+i;
+                if(right>arr.length){
+                    right=arr.length;
+                }
+                pation3(arr,left,right);
+            }
+        }
+    }
