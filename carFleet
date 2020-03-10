@@ -1,0 +1,25 @@
+class Solution {
+    public int carFleet(int target, int[] position, int[] speed) {
+        int n=position.length;
+        int res=0,t=n;
+        car[] ca=new car[n];
+        for(int i=0;i<n;++i){
+            ca[i]=new car(position[i],(double)(target-position[i])/speed[i]);//对time进行赋值
+        }
+        Arrays.sort(ca,(a,b)->Integer.compare(a.position,b.position));//以posit为基准升序排列
+        while(--t>0){
+            if(ca[t].time<ca[t-1].time)res++;//离终点近且时间更短不会相遇
+            else ca[t-1]=ca[t];//相遇后跟随时间长的车辆速度
+        }
+        if(t==0)res++;//都跟随加上最后的车队
+        return res;
+    }
+}
+class car{
+    int position;
+    double time;
+    car(int p,double t){
+        position=p;
+        time=t;
+    }
+}
