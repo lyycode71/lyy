@@ -1,0 +1,87 @@
+class node{
+    node left;
+    node right;
+    int val;
+    node(int v){
+        val=v;
+    }
+}
+public class binarySearchTree {
+    private node root=null;
+    public node search(int v){
+        node cur=root;
+        while(cur!=null){
+            if(cur.val==v)return cur;
+            else if(cur.val<v)cur=cur.right;
+            else cur=cur.left;
+        }
+        return null;
+    }
+    public boolean insert(int k){
+        if(root==null){
+            root=new node(k);
+            return true;
+        }
+        node cur=root;
+        node par=null;
+        while(cur!=null){
+            if(cur.val==k)return false;
+            else if(cur.val<k){
+                par=cur;
+                cur=cur.right;
+            }else{
+                par=cur;
+                cur=cur.left;
+            }
+        }
+        node nNode=new node(k);
+        if(par.val<k){
+            par.right=nNode;
+        }else par.left=nNode;
+        return true;
+    }
+    public boolean remove(int k){
+        node cur=root;
+        node par=null;
+        while(cur!=null){
+            if(cur.val==k){
+                removeNode(par,cur);
+                return true;
+            }else if(cur.val<k){
+                par=cur;
+                cur=cur.right;
+            }else{
+                par=cur;
+                cur=cur.left;
+            }
+        }
+        return false;
+    }
+    public void removeNode(node par,node cur){
+        if(cur.left==null){
+            if(cur==root){
+                root=cur.right;
+            }else if(par.left==cur){
+                par.left=cur.right;
+            }else par.right=cur.right;
+        }else if(cur.right==null){
+            if(cur==root){
+                root=cur.left;
+            }else if(par.left==cur){
+                par.left=cur.left;
+            }else par.right=cur.left;
+        }else{
+            node gPar=cur;
+            node get=cur.right;
+            while(get.left!=null){
+                gPar=get;
+                get=get.left;
+            }
+            cur.val=get.val;
+            if(get==gPar.left){
+                gPar.left=get.right;
+            }else gPar.right=get.right;
+        }
+    }
+
+}
