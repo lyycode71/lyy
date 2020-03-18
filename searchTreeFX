@@ -1,0 +1,141 @@
+public class searchTree<K extends Comparable<K>,V>{
+    private static class MyEntry<K,V>{
+        K key;
+        V value;
+        MyEntry<K,V> left;
+        MyEntry<K,V> right;
+        public MyEntry(K key,V value){
+            this.key=key;
+            this.value=value;
+            left=right=null;
+        }
+    }
+    private MyEntry<K,V> root=null;
+    private int size=0;
+    public V put(K key,V val){
+        if(root==null){
+            root=new MyEntry<>(key,val);
+            ++size;
+            return null;
+        }
+        MyEntry<K,V> cur=root;
+        MyEntry<K,V> par=null;
+        while(cur!=null){
+            par=cur;
+            int r=cur.key.compareTo(key);//内容判断，不是引用判断
+            if(r==0){
+                V oldV=cur.value;
+                cur.value=val;
+                return oldV;
+            }else if(r>0){
+                cur=cur.left;
+            }else{
+                cur=cur.right;
+            }
+        }
+        cur=new MyEntry<>(key,val);
+        int r=par.key.compareTo(key);
+        if(r>0){
+            par.left=cur;
+        }else{
+            par.right=cur;
+        }
+        ++size;
+        return null;
+    }
+    public  void inOrderS(){
+        inOrderS_(root);
+        System.out.println();
+    }
+    private void inOrderS_(MyEntry<K,V> root){
+        if(root!=null){
+            inOrderS_(root.left);
+            System.out.print(root.key+"-->"+root.value+" ");
+            inOrderS_(root.right);
+        }
+    }
+    public V remove(K key){
+        if(root==null)return null;
+        MyEntry<K,V> cur=root;
+        MyEntry<K,V> par=null;
+        while(cur!=null){
+            int r=cur.key.compareTo(key);
+            if(r==0){
+                break;
+            }else if(r>0){
+                par=cur;
+                cur=par.left;
+            }else{
+                par=cur;
+                cur=par.right;
+            }
+        }
+        if(cur==null)return null;
+        V oldV=cur.value;
+        remove(par,cur);
+        return oldV;
+    }
+    private void remove(MyEntry<K,V> par,MyEntry<K,V> cur){
+        if(cur.left==null){
+            if(cur!=root){
+                if(par.left==cur){
+                    par.right=cur.right;
+                }else{
+                    par.right=cur.left;
+                }
+            }else{
+                root=cur.right;
+            }
+        }else if(cur.right==null){
+            if(cur!=root){
+                if(par.left==cur){
+                    par.left=cur.left;
+                }else{
+                    par.right=cur.left;
+                }
+            }else{
+                root=cur.left;
+            }
+        }else{//左右孩子都在，找左子树得最右结点，或右子树得最左结点
+            par=cur;
+            MyEntry<K,V> next=cur.right;
+            while (next.left!=null){
+                par=next;
+                next=next.left;
+            }
+            cur.key=next.key;
+            cur.value=next.value;
+            if(par.left==next){
+                par.left=next.right;
+            }else {
+                par.right=next.right;
+            }
+        }
+    }
+    public V get(K key){
+        if(root==null)return null;
+        MyEntry<K,V> cur=root;
+        while(cur!=null){
+            int r=cur.key.compareTo(key);
+            if(r==0){
+                return cur.value;
+            }else if(r>0){
+                cur=cur.left;
+            }else cur=cur.right;
+        }
+        return null;
+    }
+    public static void test1(){
+        searchTree<Integer,String> t1=new searchTree<>();
+        t1.put(22,"wang");
+        t1.put(21,"xiao");
+        t1.put(20,"allan");
+        t1.put(24,"bob");
+        t1.put(17,"hellen");
+        t1.inOrderS();
+    }
+    
+    public static void main(String[] args) {
+        test1();
+    }
+}
