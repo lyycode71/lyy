@@ -1,0 +1,35 @@
+class Solution {
+
+    public int findMaxLength(int[] nums) {
+
+        int res=0,sum=0;
+
+        Map<Integer,Integer> m=new HashMap<>();
+
+        for(int i=0;i<nums.length;i++){
+
+            sum=sum+(nums[i]==1?1:-1);
+
+            if(sum==0&&i>res){
+
+                res=i+1;
+
+            }
+
+            if(m.containsKey(sum)){//出现不一样得数字了
+
+                res=Math.max(i-m.get(sum),res);//计算长度，保存更长得长度
+
+            }else{
+
+                m.put(sum,i);
+
+            }
+
+        }
+
+        return res;
+
+    }
+
+}
