@@ -1,0 +1,63 @@
+class Solution {
+
+    public String mostCommonWord(String paragraph, String[] banned) {
+
+        paragraph+=",";
+
+        Map<String,Integer> map=new HashMap<>();
+
+        Set<String> set=new HashSet<>();
+
+        String s="",k="",res="";
+
+        int n=0;
+
+        for(String a:banned){
+
+            set.add(a);
+
+        }
+
+        for(int i=0;i<paragraph.length();i++){
+
+            if((paragraph.charAt(i)>='a'&&paragraph.charAt(i)<='z')||(paragraph.charAt(i)>='A'&&paragraph.charAt(i)<='Z')){
+
+                if(paragraph.charAt(i)>='A'&&paragraph.charAt(i)<='Z'){
+
+                    s+=Character.toLowerCase(paragraph.charAt(i));
+
+                }else                
+
+                s+=paragraph.charAt(i);
+
+            }else{                
+
+                if(!set.contains(s)){
+
+                    map.put(s,map.getOrDefault(s,0)+1);
+
+                    if(n<map.get(s)){
+
+                        n=map.get(s);
+
+                        res=s;
+
+                    }
+
+                }
+
+                s=k;
+
+                continue;
+
+            }                
+
+        
+
+        }
+
+        return res;
+
+    }
+
+}
