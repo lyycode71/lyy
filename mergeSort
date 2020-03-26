@@ -1,0 +1,36 @@
+private static void merge(int[] array, int low, int mid, int high) { 
+int i = low;
+int j = mid; 
+int length = high - low; 
+int[] extra = new int[length]; 
+int k = 0; // 选择小的放入 extra 
+while (i < mid && j < high) {
+// 加入等于，保证稳定性 
+ if (array[i] <= array[j]) {
+  extra[k++] = array[i++];
+ } else { 
+  extra[k++] = array[j++]; 
+ } 
+}// 将属于元素放入 extra 
+while (i < mid) {
+ extra[k++] = array[i++]; 
+}
+while (j < high) { 
+ extra[k++] = array[j++]; 
+}
+for(int t=0;t<length;t++){
+ array[low+t]=extra[t];
+}
+}
+public static void mergeSort(int[] array) { 
+ mergeSortInternal(array, 0, array.length); 
+}// 待排序区间为 [low, high) 
+private static void mergeSortInternal(int[] array, int low, int high) {
+ if (low >= high - 1) { 
+  return; 
+ }
+ int mid = (low + high) / 2;
+ mergeSortInternal(array, low, mid);
+ mergeSortInternal(array, mid, high);
+ merge(array, low, mid, high); 
+}
