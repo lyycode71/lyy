@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Finder {
+    public int findKth(int[] a, int n, int K) {
+        // write code here
+        quickf(a,0,n-1);
+        return a[n-K];
+    }
+    private static void quickf(int[] arr,int left,int right){
+        if(left==right){
+            return;
+        }
+        int p=partion(arr,left,right);
+        if(p>left+1)
+            quickf(arr,left,p-1);
+        if(p+1<right)
+            quickf(arr,p+1,right);
+    }
+    public static int partion(int[] arr,int left,int right){
+        int k=arr[left],i=left,j=right;
+        while(i<j){
+            while(i<j&&arr[j]>=k){
+                j--;
+            }
+            arr[i]=arr[j];
+            while(i<j&&arr[i]<=k){
+                i++;
+            }
+            arr[j]=arr[i];
+        }
+        arr[i]=k;
+        return i;
+    }
+}
