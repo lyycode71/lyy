@@ -1,0 +1,21 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        System.out.println(buyA(n));
+    }
+    public static int buyA(int n){
+        int res=-1;
+        int p=20;
+        if(n%2==1||n<6) return -1;
+        for(int i=0;i<=n/8;i++){
+            for(int j=0;j<=n/6;j++){
+                if(i*8+j*6==n){
+                    res=i+j<p?i+j:p;
+                }
+            }
+        }
+        return res;
+    }
+}
