@@ -1,0 +1,20 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextInt()){
+            int n=sc.nextInt();
+            reserveInt(n);
+        }
+    }
+    public static void reserveInt(int n){
+        String s="";
+        while(n>9){
+            String k=String.valueOf(n%10);
+            s+=k;
+            n=n/10;
+        }
+        s=s+String.valueOf(n);
+        System.out.print(s);
+    }
+}
