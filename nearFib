@@ -1,0 +1,25 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextInt()){
+            int n=sc.nextInt();
+            System.out.print(fib(n));
+        }
+    }
+    public static int fib(int n){
+        int a=1,b=1,f=1;
+        int k=n;
+        int res=n;
+        while(k>0){
+            k=n;
+            k=k-f;
+            f=a+b;
+            a=b;b=f;
+            if(res>Math.abs(k)){
+                res=Math.abs(k);
+            }
+        }
+        return res;
+    }
+}
