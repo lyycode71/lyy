@@ -1,0 +1,19 @@
+import java.util.*;
+
+public class GrayCode {
+    public String[] getGray(int n) {
+        // write code here
+        String[] res=new String[(int)Math.pow(2,n)];//数组的大小为2^n，格雷码只有一位变动
+        if(n==1) {//初始设置
+            res[0]="0";
+            res[1]="1";
+            return res;
+        }
+        String[] bef=getGray(n-1);
+        for(int i=0;i<bef.length;i++){//n位是n-1位得2倍数
+            res[i]="0"+bef[i];//前面得字符串前面加上0
+            res[res.length-1-i]="1"+bef[i];//后面得字符串在原先得字符串前加1
+        }
+        return res;
+    }
+}
