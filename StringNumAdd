@@ -1,0 +1,24 @@
+import java.util.*;
+import java.math.BigInteger;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            String a=sc.nextLine();
+            String b=sc.nextLine();
+            System.out.println(AddLongInteger(a,b));
+        }
+        
+    }
+    public static String AddLongInteger(String addend,String augend){
+        BigInteger a=new BigInteger("0");
+        BigInteger b=new BigInteger(addend);
+        BigInteger g=new BigInteger(augend);
+        if(b.compareTo(a)>0&&g.compareTo(a)>0){
+            b=b.add(g);
+            String s=String.valueOf(b);
+            return s;
+        }
+        return null;
+    }
+}
