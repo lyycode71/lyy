@@ -1,0 +1,27 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextLine()){
+            String s=sc.nextLine();
+            String[] arr=s.split(" ");
+            int[] num=new int[arr.length];
+            for(int i=0;i<arr.length;i++){
+                num[i]=Integer.parseInt(arr[i]);
+            }
+            StringBuffer sb=new StringBuffer();
+            int n=num[0];
+            boolean k=true;
+            for(int j=1;j<num.length;j++){
+                for(int g=0;g<num[j];g++){
+                sb.append(j);
+                }
+            }
+            while(n>0){
+                sb.insert(1,"0");
+                n--;
+            }
+            System.out.println(sb.toString());
+        }
+    }
+}
