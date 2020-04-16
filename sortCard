@@ -1,0 +1,41 @@
+import java.util.*;
+public class text3{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            int n=sc.nextInt();
+            while(n-->0){
+                int m=sc.nextInt();
+                int k=sc.nextInt();
+                int[] num=new int[m*2];
+                for(int i=0;i<m*2;i++){
+                    num[i]=sc.nextInt();
+                }
+                int[] sort=sortC(num,m,k);
+                for(int j=0;j<sort.length;j++){
+                    if(j==0) {
+                        System.out.print(sort[j]);
+                    }else {
+                        System.out.print(" "+sort[j]);
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+    public static int[] sortC(int[] num,int m,int k){
+        int[] r=new int[m*2];
+        while(k>0){
+            int i=m-1;int j=m*2-1;
+            for(int l=2*m-1;l>=1;l-=2){
+                if(j>=m&&i>=0){
+                    r[l]=num[j--];
+                    r[l-1]=num[i--];
+                }
+            }
+            k--;
+            if(k>0) num=r.clone();
+        }
+        return r;
+    }
+}
