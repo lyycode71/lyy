@@ -1,0 +1,44 @@
+import java.util.*;
+public class Main{
+    static ArrayList<String> al=new ArrayList<String>();
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextInt()){
+            al.clear();
+            int n=sc.nextInt();
+            int[] arr=new int[n];
+            Stack<Integer> st=new Stack<>();
+            
+            for(int i=0;i<arr.length;i++){
+                arr[i]=sc.nextInt();
+            }
+            if(n==1){
+                System.out.println(arr[0]);
+            }else{
+                sort(arr,0,st,"",0);
+                Collections.sort(al);//对结果集排序
+                for(String s:al){
+                    System.out.println(s);
+                }
+            }
+            
+        }
+        
+    }
+    public static void sort(int[] arr,int i,Stack<Integer> st,String s,int n){
+                            //i为入栈次数，n为出栈次数，s为一趟的结果
+        if(n==arr.length){
+            al.add(s);//所有火车出栈保留当前结果
+        }
+        if(!st.empty()){//栈非空时出栈
+            int t=st.pop();
+            sort(arr,i,st,s+t+" ",n+1);
+            st.push(t);//恢复栈元素
+        }
+        if(i<arr.length){//若所有火车没有都入栈则入栈
+            st.push(arr[i]);
+            sort(arr,i+1,st,s,n);
+            st.pop();//恢复
+        }
+    }
+}
