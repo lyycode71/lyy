@@ -1,0 +1,29 @@
+import java.util.*;
+public class text1{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            String s=sc.nextLine();
+            int n=sc.nextInt();
+            String r=s.substring(0,n);
+            String res=r;
+            int k=0;
+            int n1=n;
+            for(int i=0;i<s.length()-n+1;i++){
+                int a=0;
+                r=s.substring(i,n1++);
+                for(int j=0;j<n;j++){
+                    if(r.charAt(j)=='C'||r.charAt(j)-'G'==0){
+                        a++;
+                    }
+                }
+               
+                if(a>k){
+                    k=a;
+                    res=r;
+                }
+            }
+            System.out.println(res);
+        }
+    }
+}
