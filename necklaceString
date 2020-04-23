@@ -1,0 +1,34 @@
+import java.util.*;
+public class text3{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextLine()){
+            String s=sc.nextLine();
+            String necklace=sc.nextLine();
+            Map<Character,Integer> m1=new HashMap<>();
+            Map<Character,Integer> m2=new HashMap<>();
+            for(char a:s.toCharArray()){
+                m1.put(a,m1.getOrDefault(a,0)+1);
+            }
+            for(char b:necklace.toCharArray()){
+                m2.put(b,m2.getOrDefault(b,0)+1);
+            }
+            int k=0;
+            int ls=0;
+
+            for(Character mk:m2.keySet()){
+                int diff=m1.getOrDefault(mk,0)-m2.get(mk);
+                if(diff<0){
+                    ls+=0-diff;
+                }else{k=k+1;}
+            }
+            if(k==m2.size()){
+                int ld=s.length()-necklace.length();
+                System.out.println("Yes "+ld);
+            }else{
+                System.out.println("No "+ls);
+            }
+
+        }
+    }
+}
