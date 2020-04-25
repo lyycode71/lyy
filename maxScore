@@ -1,0 +1,40 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            int n=sc.nextInt();
+            int[] stu=new int[n];
+            int c=sc.nextInt();
+            for(int i=0;i<n;i++){
+                stu[i]=sc.nextInt();
+            }
+            for(int j=0;j<c;j++){
+                String w=sc.next();
+                if(w.equals("Q")){
+                    int s=sc.nextInt();
+                    int e=sc.nextInt();
+                    System.out.println(max(stu,s,e));
+                }else if(w.equals("U")){
+                    int id=sc.nextInt();
+                    stu[id-1]=sc.nextInt();
+                }
+            }
+        }
+        
+    }
+    public static int max(int[] stu,int s,int e){
+        if(s>e){//要细心，说明范围需要比较大小
+            int t=s;
+            s=e;
+            e=t;
+        }
+        int m=stu[s-1];
+        for(int i=s-1;i<e;i++){
+            if(stu[i]>m){
+                m=stu[i];
+            }
+        }
+        return m;
+    }
+}
