@@ -1,0 +1,86 @@
+import java.util.*;
+public class Main{
+    static String[] num={"壹","贰","叁","肆","伍","陆","柒","捌","玖"};
+    public static void main(String[] arg){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            String str=sc.next();
+            String[] arr=str.split("\\.");
+            int n=Integer.valueOf(str.split("\\.")[0]);
+            StringBuffer sb=new StringBuffer("人民币");
+            int yi=(int)n/100000000;
+            if(yi!=0){
+                sb.append(resove(yi)).append("亿");
+                n=n-yi*100000000;
+            }
+            int wan=(int)n/10000;
+            if(wan!=0){
+                sb.append(resove(wan)).append("万");
+                n=n-wan*10000;
+            }
+            String pro=resove(n);
+            if(pro.length()>1){
+                sb.append(pro).append("元");
+            }
+            if(arr.length>1){
+                String end=arr[1];
+                sb.append(point(end));
+            }
+            String res=sb.toString();
+            if(res.length()>4&&res.charAt(3)=='零'&&res.charAt(4)!='元'){
+                res=res.substring(0,3)+res.substring(4);
+            }
+            System.out.println(res);
+        }
+    }
+    public static String resove(double tmp){
+        StringBuffer r1=new StringBuffer();
+        int qi=(int)tmp/1000;
+        if(qi!=0){
+            r1.append(num[qi-1]).append("仟");
+            tmp=tmp-qi*1000;
+        }
+        int bai=(int)tmp/100;
+        if(bai!=0){
+            r1.append(num[bai-1]).append("佰");
+            tmp=tmp-bai*100;
+        }
+        if(qi!=0&&bai==0){
+            r1.append("零");
+        }
+        int shi=(int)tmp/10;
+        if(shi!=0){
+            if(shi!=1){
+                r1.append(num[shi-1]);
+            }
+            r1.append("拾");
+            tmp=tmp-shi*10;
+        }
+        if(bai!=0&&shi==0){
+            r1.append("零");
+        }
+        int ge=(int)tmp%10;
+        if(ge!=0){
+            if(qi==0&&bai==0&&shi==0){
+                r1.append("零");
+            }
+            r1.append(num[ge-1]);
+        }
+        String res1=r1.toString();
+        return res1;
+    }
+    public static String point(String s){
+        String res="";
+        if(s.equals("00")||s.equals("0")){
+            res="整";
+        }else{
+            if(s.charAt(0)!='0'){
+                res+=num[Integer.valueOf(s.charAt(0)+"")-1]+"角";
+            }
+            if(s.length()>1&&s.charAt(1)!='0'){
+                res+=num[Integer.valueOf(s.charAt(1)+"")-1]+"分";
+            }
+        }
+        return res;
+    }
+}
