@@ -1,0 +1,140 @@
+public class Account {//环境类Account
+    private AccountState state;
+    private String owner;
+    public Account(String owner,double init){//构造方法
+        this.owner=owner;
+        this.state=new GreenState(init,this);//定义初始状态
+        System.out.println(owner+"开户，初始金额为"+init);
+        System.out.println("---------------------------");
+    }
+
+    public String getOwner(){//获取用户名
+        return this.owner;
+    }
+    public void setState(AccountState state) {//设置状态
+        this.state = state;
+    }
+    public AccountState getState(){//获取状态
+        return state;
+    }
+    public void deposit(double amount){
+        state.deposit(amount);//调用状态类中的deposit
+    }
+    public void withdraw(double amount){
+        state.withdraw(amount);//调用状态类中的withdraw
+    }
+}
+public abstract class AccountState {//抽象状态类AccountState
+    protected Account acc;
+    protected double balance;
+    protected String stateName;
+    public void deposit(double amount){//设置存款
+        System.out.println(acc.getOwner()+"存款"+amount);
+        balance+=amount;
+        stateCheck();
+        System.out.println("现在余额为"+balance);
+        System.out.println("现在账户状态为"+acc.getState().stateName);
+    }
+    public void withdraw(double amount){//设置取款
+        System.out.println(acc.getOwner()+"取款"+amount);
+        balance-=amount;
+        stateCheck();
+        System.out.println("现在余额为"+balance);
+        System.out.println("现在账户状态为"+acc.getState().stateName);
+    }
+    public abstract void stateCheck();//抽象类状态设定
+    public void setBalance(double balance){//设置balance
+        this.balance=balance;
+    }
+
+    public double getBalance() {//获得balance
+        return balance;
+    }
+
+    public void setStateName(String stateName) {//设置stateNmae
+        this.stateName = stateName;
+    }
+    public String getStateName(){//获得stateNmae
+        return stateName;
+    }
+}
+public class GreenState extends AccountState{//具体状态类GreenState
+    public GreenState(double blance,Account acc){//构造方法
+        this.acc=acc;
+        this.balance=blance;
+    }
+    public GreenState(AccountState state){//构造方法
+        this.acc=state.acc;
+        this.balance=state.getBalance();
+        this.stateName="GreenState";
+    }
+    @Override
+    public void stateCheck() {//设定状态
+        if(balance<-1000){
+            acc.setState(new RedState(this));
+        }else if(balance<0){
+            acc.setState(new YellowState(this));
+        }else {
+            acc.setState(new GreenState(this));
+        }
+    }
+}
+public class YellowState extends AccountState{//具体状态类YellowState
+    public YellowState(AccountState state){//构造方法
+        this.acc=state.acc;
+        this.balance=state.balance;
+        this.stateName="YellowState";
+    }
+
+    @Override
+    public void stateCheck() {//设定状态
+        if(balance<-1000){
+            acc.setState(new RedState(this));
+        }else if(balance<0){
+            acc.setState(new YellowState(this));
+        }else {
+            acc.setState(new GreenState(this));
+        }
+    }
+}
+public class RedState extends AccountState{//具体状态类AccountState
+    public RedState(AccountState state){//构造方法
+        this.acc=state.acc;
+        this.balance=state.balance;
+        this.stateName="RedState";
+    }
+
+    @Override
+    public void withdraw(double amount) {//覆写取款
+        System.out.println(acc.getOwner()+"取款"+amount);
+        System.out.println("账户已被冻结，取款失败");
+        System.out.println("现在余额为"+balance);
+        System.out.println("现在账户状态为"+acc.getState().stateName);
+    }
+
+    @Override
+    public void stateCheck() {//设定状态
+        if(balance<-1000){
+            acc.setState(new RedState(this));
+        }else if(balance<0){
+            acc.setState(new YellowState(this));
+        }else {
+            acc.setState(new GreenState(this));
+        }
+    }
+}
+public class Client {//用户端测试代码
+    public static void main(String[] args) {
+        Account account=new Account("段誉",5);//创建Account对象
+        account.deposit(100);     //存款
+        System.out.println("---------------------------");
+        account.withdraw(200);   //取款
+        System.out.println("---------------------------");
+        account.deposit(1000);
+        System.out.println("---------------------------");
+        account.withdraw(2000);
+        System.out.println("---------------------------");
+        account.withdraw(100);
+        System.out.println("---------------------------");
+    }
+}
