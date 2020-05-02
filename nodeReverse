@@ -1,0 +1,18 @@
+class node{
+ int val;
+ node next;
+ node(int val){
+  this.val=val;
+ }
+}
+public class solution{
+ public node reverse(node head){
+  if(head==null||head.next==null){
+   resturn head;
+  }
+  node nHead=reverse(head.next);
+  head.next.next=head;
+  head.next=null;
+  return nHead;
+ }
+}
