@@ -1,0 +1,32 @@
+public class mStack{
+ private Stack<Integer> data;
+ private Stack<Integer> min;
+ public mSrack{
+  this.data=new Stack<Integer>();
+  this.min=new Stack<Integer>();
+ }
+ public void push(int num){
+  if(min.isEmpty()){
+   min.push(num);
+  }else if(num<getMin()){
+   min.push(num);
+  }
+  data.push(num);
+ }
+ public int pop(){
+  if(data.isEmpty()){
+   throw new RuntimeException("Stack is empty.");
+  }
+  int val=data.pop();
+  if(val==getMin()){
+   min.pop();
+  }
+  return val;
+ }
+ public int getMin(){
+  if(min.isEmpty()){
+   throw new RuntimeException("Stack is empty.");
+  }
+  return min.peek();
+ }
+}
