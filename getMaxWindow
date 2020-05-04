@@ -1,0 +1,23 @@
+public class window{
+ public int[] getMaxWindow(int[] arr,int w){
+  if(arr==null||w<1||arr.length<w){
+   return null;
+  }
+  LinkedList<Integer> qmax=new LinkedList<>();
+  int[] res=new int[arr.length-w+1];
+  int index=0;
+  for(int i=0;i<arr.length;i++){
+   while(!qmax.isEmpty()&&arr[qmax.peekLast()]<=arr[i]){//有一个比表头大的，全部删除
+    qmax.pollLast();
+   }
+   qmax.addLast(i);//添加下标
+   if(qmax.peekFirst()==i-w){//向后滑动
+    qmax.pollFirst();
+   }
+   if(i>=w-1){//为数组添加元素
+    res[index++]=arr[qmax.peekFirst()];
+   }
+  }
+  return res;
+ }
+}
