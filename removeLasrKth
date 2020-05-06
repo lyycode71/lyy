@@ -1,0 +1,28 @@
+public class node{
+ int val;
+ node next;
+ public node(int data){
+ this.val=data;
+ }
+}
+public node removeLasrKth(node head,int k){
+ if(head==null||k<1){
+  return head;
+ }
+ node cur=head;
+ while(cur!=null){
+  k--;
+  cur=cur.next;//确保有符合要求的数
+ }
+ if(k==0){
+  head=head.next;
+ }
+ if(k<0){
+  cur=head;
+  while(++k!=0){
+   cur=cur.nrxt;//删除结点的前一结点
+  }
+  cur.next=cur.next.next;
+ }
+ return head;
+}
