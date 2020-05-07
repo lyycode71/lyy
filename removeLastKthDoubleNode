@@ -1,0 +1,34 @@
+public class dNode{
+ int val;
+ dNode next;
+ dNode last; 
+ public dNode(int data){
+  this.val=data;
+ }
+}
+public dNode removeLastKth(dNode head,int k){
+ if(head==null||k<1){
+  return head;
+ }
+ dNode cur=head;
+ while(cur!=null){
+  k--;
+  cur=cur.next;
+ }
+ if(k==0){//为头节点时
+  head=head.next;
+  head.last=null;
+ }
+ if(k<0){
+  cur=head;
+  while(++k!=0){
+   cur=cur.next;
+  }
+  dNode nNext=cur.next.next;
+  cur.next=nNext;
+  if(nNext!=null){
+   nNext.last=cur;
+  }
+ }
+ return head;
+}
