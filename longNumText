@@ -1,0 +1,32 @@
+import java.util.*;
+public class text12{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            int n=sc.nextInt();
+            String[] arr=new String[n];
+            sc.nextLine();
+            for(int i=0;i<n;i++){
+                arr[i]=sc.nextLine();
+            }
+            for(int j=0;j<n-1;j++){
+                int m=0;
+                for(int q=1;q<n-j;q++){
+                    if(arr[q].length()>arr[m].length()){
+                        m=q;
+                    }else if(arr[q].length()==arr[m].length()){
+                        if(arr[q].charAt(0)>arr[m].charAt(0)){
+                            m=q;
+                        }
+                    }
+                }
+                String k=arr[m];
+                arr[m] = arr[n - j - 1];
+                arr[n - j - 1] = k;
+            }
+            for(int t=0;t<n;t++){
+                System.out.println(arr[t]);
+            }
+        }
+    }
+}
