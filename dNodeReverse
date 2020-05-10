@@ -1,0 +1,20 @@
+public dNode{
+ int val;
+ dNode last;
+ dNode next;
+ public dNode(int data){
+  this.val=data;
+ }
+}
+public dNode reverseList(dNode head){
+ dNode pre=null;
+ dNode next=null;
+ while(head!=null){
+  next=head.next;
+  head.next=pre;
+  head.last=next;
+  pre=head;
+  head=next;
+ }
+ return pre;
+}
