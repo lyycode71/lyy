@@ -1,0 +1,21 @@
+import java.util.*;
+public class Main{
+    private static final int[] w={17*29,29,1};
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+            String x=sc.next();
+            String p=sc.next();
+            String[] arrx=x.split("\\.");
+            String[] arrp=p.split("\\.");
+            int[] numx={Integer.parseInt(arrx[0]),Integer.parseInt(arrx[1]),Integer.parseInt(arrx[2])};
+            int[] nump={Integer.parseInt(arrp[0]),Integer.parseInt(arrp[1]),Integer.parseInt(arrp[2])};
+            int a=nump[0]*w[0]+nump[1]*w[1]+nump[2]*w[2];
+            int b=numx[0]*w[0]+numx[1]*w[1]+numx[2]*w[2];
+            int t=a-b;
+            if(a<b){
+                System.out.print("-");
+                t=-t;
+            }
+            System.out.println(t/w[0]+"."+t%w[0]/w[1]+"."+t%w[0]%w[1]/w[2]);
+    }
+}
