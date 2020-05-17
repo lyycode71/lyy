@@ -1,0 +1,23 @@
+public node josephusKill(node head,int m){
+ if(head==null||head.next==head||m<1){
+  return head;
+ }
+ node cur=head.next;
+ int t=1;
+ while(cur!=head){
+  t++;
+  cur=cur.next;
+ }
+ t=getLive(t,m);
+ while(--t!=0){
+  head=head.next;
+ }
+ head.next=head;
+ return head;
+}
+public int getLive(int i,int m){//找到最后存活结点
+ if(i==1){
+  return 1;
+ }
+ return (getLive(i-1,m)+m-1)%i+1;//推演式子
+}
