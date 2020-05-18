@@ -1,0 +1,45 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int m=sc.nextInt();
+        int p=sc.nextInt();
+        int[][] dt=new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                dt[i][j]=sc.nextInt();
+            }
+        }
+        getPath(dt,n,m,p);
+        
+    }
+    static String path;
+    private static void getPath(int[][] dt,int i,int j,int p){
+        if(i<=0){
+            System.out.println("Can not escape!");
+        }
+        boolean[][] v=new boolean[i][j];
+        find(i,j,dt,0,0,"",v,p);
+        System.out.println(path);
+        
+    }
+    public static void find(int n,int m,int[][] dt,int i,int j,String res,boolean[][] v,int p){
+        if(i==0&&j==m-1&&dt[0][m-1]==1){
+            if(p>=0){
+                path=res+"[0,"+(m-1)+"]";
+            }else{
+                path="Can not escape!";
+            }
+            return;
+        }
+        if(i<n&&j<m&&i>=0&&j>=0&&dt[i][j]==1&&!v[i][j]){
+            v[i][j]=true;
+            res+="["+i+","+j+"],";
+            find(n,m,dt,i,j+1,res,v,p-1);//向右
+            find(n,m,dt,i+1,j,res,v,p);//向下
+            find(n,m,dt,i,j-1,res,v,p-1);//向左
+            find(n,m,dt,i-1,j,res,v,p-3);//向上
+        }
+    }
+}
