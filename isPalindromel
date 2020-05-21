@@ -1,0 +1,45 @@
+public class node{
+ int val;
+ node next;
+ public node(int val){
+  this.val=val;
+ }
+}
+public boolean isPalindromel(node head){
+ Stack<node> st=new Stack<>();
+ node cur=head;
+ while(cur!=null){//入栈达到逆序效果
+  st.push(cur);
+  cur=cur.next;
+ }
+ while(head!=null){
+  if(head.val!=st.pop().val){//比较
+   return false;
+  }
+  head=head.next;
+ }
+ return ture;
+}
+public boolean isPalindromal2(node head){
+ if(head==null||head.next==null){
+  return true;
+ }
+ node right=head.next;
+ node cur=head;
+ while(cur.next!=null&&cur.next.next!=null){//取到中间结点
+  right=right.next;
+  cur=cur.next;
+ }
+ Stack<node> st=new Stack<>();
+ while(right!=null){//入栈
+  stack.push(right);
+  right=right.next;
+ }
+ while(!st.isEmpty()){
+  if(head.val!=st.pop().val){//比较
+   return false;
+  }
+  head=head.next;
+ }
+ return true;
+}
