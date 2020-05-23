@@ -1,0 +1,76 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextLine()){
+            String m=sc.nextLine();
+            String s=sc.nextLine();
+            System.out.println(toS(m));
+            System.out.println(toM(s));
+        }
+    }
+    private static String toS(String m){//总的说是加一，大转小，小转大
+        String k=m;
+        String r="";
+        for(int i=0;i<k.length();i++){
+            if(k.charAt(i)>='a'&&k.charAt(i)<='z'){
+                int c=(int)k.charAt(i);
+                if(k.charAt(i)=='z'){
+                    r+='A';
+                }else{
+                    r+=(char)(c-31);
+                }
+            }else if(k.charAt(i)>='A'&&k.charAt(i)<='Z'){
+                int c=(int)k.charAt(i);
+                if(k.charAt(i)=='Z'){
+                    r+='a';
+                }else{
+                    r+=(char)(c+33);
+                }
+            }else if(k.charAt(i)>='0'&&k.charAt(i)<='9'){
+                int c=(int)k.charAt(i);
+                if(k.charAt(i)=='9'){
+                    r+='0';
+                }else{
+                    r+=(char)(c+1);
+                }
+            }else{
+                r+=k.charAt(i);
+            }
+            
+        }
+        return r;
+    }
+    private static String toM(String s){//总的说是减一，大转小，小转大
+        String k=s;
+        String r="";
+        for(int i=0;i<k.length();i++){
+            if(k.charAt(i)>='a'&&k.charAt(i)<='z'){
+                int c=(int)k.charAt(i);
+                if(k.charAt(i)=='a'){
+                    r+='Z';
+                }else{
+                    r+=(char)(c-33);
+                }
+            }else if(k.charAt(i)>='A'&&k.charAt(i)<='Z'){
+                int c=(int)k.charAt(i);
+                if(k.charAt(i)=='A'){
+                    r+='z';
+                }else{
+                    r+=(char)(c+31);
+                }
+            }else if(k.charAt(i)>='0'&&k.charAt(i)<='9'){
+                int c=(int)k.charAt(i);
+                if(k.charAt(i)=='0'){
+                    r+='9';
+                }else{
+                    r+=(char)(c-1);
+                }
+            }else{
+                r+=k.charAt(i);
+            }
+            
+        }
+        return r;
+    }
+}
