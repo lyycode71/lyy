@@ -1,0 +1,38 @@
+import java.util.*;
+public class text5{
+    private static List<ArrayList<Integer>> res=new ArrayList<>();
+    private static List<Integer> li=new ArrayList<>();
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextInt()){
+            int n=sc.nextInt();
+            int m=sc.nextInt();
+            find(1,0,n,m);
+            for(ArrayList<Integer> p:res){
+                for(int i=0;i<p.size();i++){
+                    System.out.print(p.get(i));
+                    if(i!=p.size()-1){
+                        System.out.print(" ");
+                    }
+                }
+                System.out.println();
+            }
+        }
+    }
+    private static void find(int b,int s,int n,int m){
+        if(s>=m){
+            if(s==m){
+                res.add(new ArrayList<>(li));
+            }
+            return;
+        }
+        for(int i=b;i<=n;i++){
+            if(i>m){
+                continue;
+            }
+            li.add(i);
+            find(i+1,s+i,n,m);
+            li.remove(li.size()-1);
+        }
+    }
+}
