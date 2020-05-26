@@ -1,0 +1,26 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextLine()){
+            String s=sc.nextLine();
+            String k="";
+            String p="";
+            for(int i=s.length()-1;i>=0;i--){
+                if(('a'<=s.charAt(i)&&'z'>=s.charAt(i))||('A'<=s.charAt(i)&&'Z'>=s.charAt(i))){
+                    k+=s.charAt(i);
+                }else if(k.length()!=0){
+                    for(int j=k.length()-1;j>=0;j--){
+                        p+=k.charAt(j);
+                    }
+                    p+=" ";
+                    k="";
+                }
+            }
+            for(int j=k.length()-1;j>=0;j--){
+                p+=k.charAt(j);
+            }
+            System.out.println(p.trim());
+        }
+    }
+}
