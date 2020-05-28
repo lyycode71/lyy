@@ -1,0 +1,55 @@
+public class node{
+ public int val;
+ public node next;
+ public node rand;
+ public node(int data){
+  this.val=data;
+ }
+}
+public node copyList(node head){
+ Map<node,node> map=new HashMap<>();
+ node cur=head;
+ while(cur!=null){
+  map.put(cur,new node(cur.val));
+  cur=cur.next;
+ }
+ cur=head;
+ while(cur!=null){
+  map.get(cur).next=map.get(cur.next);
+  map.get(cur).rand=map.get(cur.rand);
+  cur=cur.next;
+ }
+ return map.get(head);
+}
+public node copyList2(node head){
+ if(head==null){
+  return null;
+ }
+ node cur=head;
+ node next=null;
+ while(cur!=null){//复制结点
+  next=cur.next;
+  cur.next=new node(cur.val);
+  cur.next.next=next;
+  cur=next;
+ }
+ cur=head;
+ node copy=null;
+ while(cur!=null){//设置rand指针
+  next=cur.next.next;
+  copy=cur.next;
+  copy.rand=cur.rand!=null?cur.rand.next:null;
+  cur=next;
+ }
+ node res=head.next;
+ cur=head;
+ while(cur!=null){//拆分
+  next=cur.next.next;
+  copy=cur.next;
+  cur.next=next;
+  copy.next=next!=null?next.next:null;
+  cur=next;
+ }
+ return res;
+}
+  
