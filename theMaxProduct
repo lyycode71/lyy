@@ -1,0 +1,30 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextInt()){
+            int n=sc.nextInt();
+            int[] arr=new int[n+1];
+            for(int i=1;i<n+1;i++){
+                arr[i]=sc.nextInt();
+            }
+            int k=sc.nextInt();
+            int d=sc.nextInt();
+            long[][] fm=new long[k+1][n+1];
+            long[][] fs=new long[k+1][n+1];//应对是负数时
+            long r=Integer.MIN_VALUE;
+            for(int i=1;i<n+1;i++){
+                fm[1][i]=arr[i];
+                fs[1][i]=arr[i];
+                for(int t=2;t<k+1;t++){//个数
+                    for(int j=i-1;j>0&&i-j<=d;j--){//控制间距
+                        fm[t][i]=Math.max(fm[t][i],Math.max(fm[t-1][j]*arr[i],fs[t-1][j]*arr[i]));
+                        fs[t][i]=Math.min(fs[t][i],Math.min(fm[t-1][j]*arr[i],fs[t-1][j]*arr[i]));
+                    }
+                }
+                r=Math.max(r,fm[k][i]);
+            }
+            System.out.println(r);
+        }
+    }
+}
