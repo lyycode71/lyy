@@ -1,0 +1,49 @@
+import java.util.*;
+public class Solution {
+    public int minimumTotal(ArrayList<ArrayList<Integer>> triangle) {
+        if(triangle.isEmpty()){
+            return 0;
+        }
+        ArrayList<ArrayList<Integer>> ext=new ArrayList<>(triangle);
+        int row=ext.size();
+        for(int r=row-2;r>=0;r--){
+            for(int i=0;i<=r;i++){
+                int k=Math.min(triangle.get(r+1).get(i),triangle.get(r+1).get(i+1));
+                    k+=triangle.get(r).get(i);
+                ext.get(r).set(i,k);
+            }
+        }
+        return ext.get(0).get(0);
+    }
+
+public int minimumTotal2(ArrayList<ArrayList<Integer>> triangle) {
+        if(triangle.isEmpty()){
+            return 0;
+        }
+        List<List<Integer>> ext=new ArrayList<>();
+        for(int i=0;i<triangle.size();i++){
+            ext.add(new ArrayList<Integer>());
+        }
+        ext.get(0).add(triangle.get(0).get(0));
+        
+        for(int i=1;i<triangle.size();i++){
+            int k=0;
+            for(int j=0;j<=i;j++){
+                if(j==0){
+                    k=triangle.get(i-1).get(j);
+                }else if(j==i){
+                    k=triangle.get(i-1).get(j-1);
+                }else{
+                    k=Math.max(triangle.get(i-1).get(j),triangle.get(i-1).get(j-1));
+                }
+                ext.get(i).add(triangle.get(i).get(j)+k);
+            }
+        }
+        int row=triangle.size();
+        int res=ext.get(row-1).get(0);
+        for(int i=0;i<row;i++){
+            res=Math.min(res,ext.get(row).get(i));
+        }
+        return res;
+    }
+   }
