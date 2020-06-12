@@ -1,0 +1,28 @@
+public class Solution {
+   public int backPackII(int m, int[] A, int[] V) {
+        // write your code here
+        int num = A.length;
+        if(m == 0 || num == 0)
+            return 0;
+        //多加一列，用于设置初始条件，因为第一件商品要用到前面的初始值
+        int[] maxValue = new int[m + 1];
+        //初始化所有位置为0，第一行都为0，初始条件
+        for(int i = 0; i <= m; ++i){
+            maxValue[i] = 0;
+       }
+        for(int i = 1; i <= num; ++i){
+            for(int j = m; j > 0; --j){
+                //如果第i个商品大于j,说明放不下， 所以(i,j)的最大价值和(i-1,j)相同
+                //如果可以装下，分两种情况，装或者不装
+                //如果不装，则即为(i-1, j)
+                //如果装，需要腾出放第i个物品大小的空间： j - A[i],装入之后的最大价值即为(i - 1, j - A[i-1]) + 第i个商品的价值
+               if(A[i - 1] <= j){
+                    int newValue = maxValue[j - A[i - 1]] + V[i - 1];
+                    maxValue[j] = Math.max(newValue, maxValue[j]);
+               }
+           }
+       }
+        //返回装入前N个商品，物品大小为m的最大价值
+        return maxValue[m];
+   }
+}
