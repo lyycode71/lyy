@@ -1,0 +1,30 @@
+import java.util.*;
+public class bagNum {
+    static int res=0;
+    static int n=0;
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextInt()){
+            n=sc.nextInt();
+            int[] arr=new int[n+1];
+            for(int i=1;i<=n;i++){
+                arr[i]=sc.nextInt();
+            }
+            int s=40;
+            res=0;
+            findNum(arr,s,n);
+            System.out.println(res);
+        }
+    }
+    public static void findNum(int[] arr,int s,int n){
+        if(s==0){
+            res++;
+            return;
+        }
+        if(s<0||(s>0&&n<0)){
+            return;
+        }
+        findNum(arr,s-arr[n],n-1);
+        findNum(arr,s,n-1);
+    }
+}
