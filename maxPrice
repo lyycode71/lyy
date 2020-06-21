@@ -1,0 +1,58 @@
+import java.util.*;
+public class maxPrice{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextInt()){
+            int n=sc.nextInt();
+            int m=sc.nextInt();
+            int[] desk=new int[n];
+            int[] book=new int[n];//做标记位
+            int[][] bc=new int[m][2];
+            long max=0;
+            for(int i=0;i<n;i++){
+                desk[i]=sc.nextInt();
+            }
+            for(int i=0;i<m;i++){
+                bc[i][0]=sc.nextInt();
+                bc[i][1]=sc.nextInt();
+            }
+            Arrays.sort(desk);
+            Arrays.sort(bc,new Comparator<int[]>(){//便于实现贪心
+                @Override
+                public int compare(int[] a,int[] b){
+                    return b[1]-a[1];
+                }
+            });
+            for(int i=0;i<m;i++){
+                if(desk[n-1]<bc[i][0]){//满足不拼桌
+                    continue;
+                }
+                int num=bc[i][0];
+                int price=bc[i][1];
+                int index=find(num,desk);
+                while(index<n&&book[index]==1){
+                    index++;
+                }
+                if(index<n){
+                    max+=price;
+                    book[index]=1;
+                }
+            }
+            System.out.println(max);
+        }
+    }
+    public static int find(int num,int[] a){
+        int left=0;
+        int right=a.length-1;
+        int mid=0;
+        while(left<=right){
+            mid=(left+right)>>1;
+            if(num<=a[mid]){
+                right=mid-1;
+            }else{
+                left=mid+1;
+            }
+        }
+        return left;
+    }
+}
