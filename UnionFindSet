@@ -1,0 +1,36 @@
+import java.util.List; 
+import java.util.ArrayList; 
+public class UnionFindSet {
+ private List<Integer> ufs; 
+ public UnionFindSet(int size){
+  ufs = new ArrayList<>(size); 
+ }
+ // 给一个元素的编号，找到该元素所在集合的名称
+ public int findRoot(int index) {
+ // 如果数组中存储的是负数，找到，否则一直继续 
+  while(ufs.get(index) >= 0) {
+   index = ufs.get(index);
+  }
+  return index; 
+  }
+  boolean union(int x1, int x2) {
+   int root1 = findRoot(x1);
+   int root2 = findRoot(x2); 
+   // x1已经与x2在同一个集合 
+   if(root1 == root2) 
+     return false; 
+    // 将两个集合中元素合并 
+   ufs.set(root1, ufs.get(root2));
+   // 将其中一个集合名称改变成另外一个 
+   ufs.set(root2, root1);
+   return true; 
+  }
+   // 数组中负数的个数，即为集合的个数 
+   int count() {
+    int count = 0; 
+    for(int e : ufs) {
+     if(e < 0) ++count;
+    }
+    return count;
+   }
+  }
