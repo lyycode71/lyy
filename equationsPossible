@@ -1,0 +1,47 @@
+class Solution {
+ public boolean equationsPossible(String[] equations) { 
+  UnionFindSet ufs = new UnionFindSet(26); 
+  for(int i = 0; i < equations.length; ++i) {
+   // 将等号两端的字符合并到一个集合中
+   if('=' == equations[i].charAt(1)) {
+    ufs.union(equations[i].charAt(0)-'a', equations[i].charAt(3)-'a'); 
+   }
+  }
+  for(int i = 0; i < equations.length; ++i) { 
+   // 将等号两端的字符合并到一个集合中
+   if('!' == equations[i].charAt(1)){ 
+   // 如果"!="两端的字符在同一个集合中，不满足 
+    if(ufs.findRoot(equations[i].charAt(0)-'a') == ufs.findRoot(equations[i].charAt(3)-'a'))
+     return false; 
+   }
+  }
+  return true; 
+ }
+}
+public class UnionFindSet { 
+ private List<Integer> ufs;
+ public UnionFindSet(int size){ 
+  ufs = new ArrayList<>(size);
+ } 
+ public int findRoot(int index) { 
+  while(ufs.get(index) >= 0) { 
+   index = ufs.get(index);
+  }
+  return index;
+ }
+ boolean union(int x1, int x2) {
+  int root1 = findRoot(x1); 
+  int root2 = findRoot(x2); 
+  if(root1 == root2) 
+   return false; 
+  ufs.set(root1, ufs.get(root2));
+  ufs.set(root2, root1); return true;
+ }
+ int count() {
+  int count = 0;
+  for(int e : ufs) {
+   if(e < 0) ++count; 
+  }
+  return count; 
+ }
+}
