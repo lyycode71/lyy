@@ -1,0 +1,21 @@
+class Solution {
+    static String[] mapString = {" "," ","abc", "def", "ghi", "jkl", "mno","pqrs", "tuv", "wxyz"};
+    public List<String> letterCombinations(String digits) {
+        List<String> res=new ArrayList<>();
+        backTrace(digits,res,"",0);
+        return res;
+    }
+    public static void backTrace(String digits,List<String> res,String cur,int dep){
+        if(dep==digits.length()){
+            if(cur.length()>0){
+                res.add(cur);
+            }
+            return;
+        }
+        int curIn=digits.charAt(dep)-'0';
+        String curM=mapString[curIn];
+        for(int i=0;i<curM.length();i++){
+            backTrace(digits,res,cur+curM.charAt(i),dep+1);
+        }
+    }
+}
