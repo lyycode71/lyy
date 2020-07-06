@@ -1,0 +1,46 @@
+import java.util.*;
+public class Main{
+    private static class customer implements Comparable<customer>{
+        int num;
+        int buget;
+        @Override
+        public int compareTo(customer o){
+            return o.buget-buget;
+        }
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNext()){
+            int nt=sc.nextInt();
+            int nc=sc.nextInt();
+            TreeMap<Integer,Integer> table=new TreeMap<>();
+            for(int i=0;i<nt;i++){
+                int cur=sc.nextInt();
+                table.put(cur,table.getOrDefault(cur,0)+1);
+            }
+            customer[] cus=new customer[nc];
+            for(int i=0;i<nc;i++){
+                cus[i]=new customer();
+                cus[i].num=sc.nextInt();
+                cus[i].buget=sc.nextInt();
+            }
+            Arrays.parallelSort(cus);
+            long res=0;
+            for(int i=0;i<nc&&!table.isEmpty();i++){
+                customer cur=cus[i];
+                Integer k=table.ceilingKey(cur.num);
+                if(k==null){
+                    continue;
+                }
+                res+=cur.buget;
+                int n=table.get(k);
+                if(n==1){
+                    table.remove(k);
+                }else{
+                    table.put(k,n-1);
+                }
+            }
+            System.out.println(res);
+        }
+    }
+}
