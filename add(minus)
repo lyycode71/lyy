@@ -1,0 +1,18 @@
+//不用运算符实现加法
+public int add(int a,int b){
+ int sum=a;
+ while(b!=0){
+  sum=a^b;
+  b=(a&b)<<1;//考虑进位
+  a=sum;
+ }
+ return sum;
+}
+//不用运算符实现减法
+public int negnum(int n){
+ return add(~n,1);
+ //得到-b
+}
+public int minus(int a,int b){
+ return add(a,negnum(b));
+}
