@@ -1,0 +1,39 @@
+public void spiralOrderPrint(int[][] matrix){
+ int r=0;
+ int c=0;
+ int dr=matrix.length-1;
+ int dc=matrix[0].length-1;
+ while(r<=dr&&c<=dc){
+  printR(matrix,r++,c++,dr--,dc--);
+ }
+}
+public void printR(int[][] matrix,int r,int c,int dr,int dc){
+ if(r==dr){
+  for(int i=c;i<=dc;i++){
+   System.out.print(matrix[r][i]+" ");
+  }
+ }else if(c==dc){
+  for(int i=r;i<=dr;i++){
+   System.out.print(matrix[r][c]+" ");
+  }
+ }else{
+  int curC=c;
+  int curR=r;
+  while(curC!=dc){
+   System.our.print(matrix[r][curC]+" ");
+   curC++;
+  }
+  while(curR!=dr){
+   System.our.print(matrix[curR][c]+" ");
+   curR++;
+  }
+  while(curC!=c){
+   System.out.print(matrix[r][curC]+" ");
+   curC--;
+  }
+  while(curR!=r){
+   System.out.print(matrix[curR][c]+" ");
+   curR--;
+  }
+ }
+}
