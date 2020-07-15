@@ -1,0 +1,62 @@
+import java.util.*;
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int m=sc.nextInt();
+        int arr[][]=new int[n+1][n+1];//正常航行时间
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<=n;j++){
+                arr[i][j]=-1;
+            }
+        }
+        int[][] s=new int[n+1][n+1];//风暴开始时间
+        int[][] e=new int[n+1][n+1];//风暴结束时间
+        for(int i=0;i<m;i++){
+            int p=sc.nextInt();
+            int q=sc.nextInt();
+            int k=sc.nextInt();
+            int x=sc.nextInt();
+            int y=sc.nextInt();
+            arr[p][q]=k;
+            arr[q][p]=k;
+            s[p][q]=x;
+            s[q][p]=x;
+            e[p][q]=y;
+            e[q][p]=y;
+        }
+        System.out.println(dijkstra(arr,s,e,n));
+    }
+    public static int dijkstra(int[][] arr,int[][] s,int[][] e,int n){
+        int[] dist=new int[n+1];//记录航行天数
+        boolean[] v=new boolean[n+1];//标记已过港口
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        dist[1]=0;
+        for(int i=1;i<=n;i++){
+            int min=Integer.MAX_VALUE;
+            int k=1;
+            for(int j=1;j<=n;j++){//下一港口
+                if(!v[j]&&dist[j]<min){
+                    min=dist[j];
+                    k=j;
+                }
+            }
+            v[k]=true;
+            for(int a=1;a<=n;a++){
+                if(!v[a]&&arr[k][a]!=-1){
+                    int tmp=dist[k]+arr[k][a];
+                    if(tmp<s[k][a]){//风暴前到达
+                        dist[a]=Math.min(tmp,dist[a]);
+                    }else{
+                        if(dist[k]>e[k][a]){//风暴后到达
+                            dist[a]=Math.min(tmp,dist[a]);
+                        }else{//等待风暴过去或舍弃本次路线保存原数据
+                            dist[a]=Math.min(dist[a],e[k][a]+arr[k][a]);
+                        }
+                    }
+                }
+            }
+        }
+        return dist[n]+1;//第几天到达
+    }
+}
