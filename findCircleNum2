@@ -1,0 +1,42 @@
+class Solution {
+    public int findCircleNum(int[][] M) {
+        int m=M.length;
+        boolean[] vis=new boolean[m];//标记已成为朋友圈的人
+        int res=0;
+        for(int i=0;i<m;i++){
+            if(!vis[i]){
+                dfs(M,vis,i);//探完整个朋友圈有关的人
+                res++;
+            }
+        }
+        return res;
+    }
+    public void dfs(int[][] m,boolean[] vis,int a){
+        for(int i=0;i<m.length;i++){
+            if(m[a][i]==1&&!vis[i]){
+                vis[i]=true;
+                dfs(m,vis,i);
+            }
+        }
+    }
+     public int findCircleNum2(int[][] M) {//利用广度思想解决
+        boolean[] visited = new boolean[M.length];
+        int res= 0;
+        Queue <Integer> queue = new LinkedList<>();
+        for (int i = 0; i < M.length; i++) {
+            if (!visited[i]) {
+                queue.add(i);
+                while (!queue.isEmpty()) {
+                    int s = queue.poll();
+                    visited[s] =true;
+                    for (int j = 0; j < M.length; j++) {
+                        if (M[s][j]==1&&!visited[j])
+                            queue.add(j);
+                    }
+                }
+                res++;
+            }
+        }
+        return res;
+    }
+}
