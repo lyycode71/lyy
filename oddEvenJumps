@@ -1,0 +1,36 @@
+class Solution {
+    public int oddEvenJumps(int[] A) {
+        int n=A.length;
+        if(n<=1){
+            return n;
+        }
+        boolean[] odd=new boolean[n];//标记临近点
+        boolean[] even=new boolean[n];//标记临近点
+        odd[n-1]=even[n-1]=true;
+        TreeMap<Integer,Integer> val=new TreeMap();
+        val.put(A[n-1],n-1);
+        for(int i=n-2;i>=0;i--){
+            int v=A[i];
+            if(val.containsKey(v)){
+                odd[i]=even[val.get(v)];
+                even[i]=odd[val.get(v)];
+            }else{
+                Integer low=val.lowerKey(v);
+                Integer high=val.higherKey(v);
+                if(low != null){
+                    even[i]=odd[val.get(low)];
+                }
+                if(high != null){
+                    odd[i]=even[val.get(high)];
+                }
+            }
+            val.put(v,i);
+        }
+        int res=0;
+        for(boolean b:odd){
+            if(b)
+            res++;
+        }
+        return res;
+    }
+}
