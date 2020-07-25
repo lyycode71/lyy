@@ -1,0 +1,34 @@
+import java.util.*;
+/**
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+public class Solution {
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root,int target) {
+        ArrayList<ArrayList<Integer>> res=new ArrayList<ArrayList<Integer>>();
+        find(root,res,new ArrayList<Integer>(),target);
+        return res;
+    }
+    public static void find(TreeNode root,ArrayList<ArrayList<Integer>> res,ArrayList<Integer> li,int t) {
+        if(root==null){
+            return;
+        }
+        li.add(root.val);
+        t-=root.val;
+        if(root.left==null&&root.right==null&&t==0){
+            res.add(new ArrayList<Integer>(li));//进行拷贝，否则会为空
+        }
+        find(root.left,res,li,t);
+        find(root.right,res,li,t);
+        li.remove(li.size()-1);
+    }
+}
