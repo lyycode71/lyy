@@ -1,0 +1,32 @@
+import java.util.*; 
+public class Solution { 
+  public void Swap(char[] str, int i, int j){ 
+    char temp = str[i];
+    str[i] = str[j];
+    str[j] = temp;
+  }
+  public boolean IsExist(ArrayList<String> result, char[] str){//判断是否存在
+    return result.contains(String.valueOf(str));
+  }
+  public void PermutationHelper(char[] str, int start, ArrayList<String> result){
+    if(start == str.length - 1){ 
+      if(!IsExist(result, str)){ 
+        result.add(new String(str)); 
+      }
+      return;
+    }
+    for(int i = start; i < str.length; i++){ 
+      Swap(str, start, i); //确定首元素
+      PermutationHelper(str, start+1, result);
+      Swap(str, start, i);//交换回去
+    }
+  }
+  public ArrayList<String> Permutation(String str) {
+    ArrayList<String> result = new ArrayList<>(); 
+    if(str != null && str.length() > 0){
+      PermutationHelper(str.toCharArray(), 0, result);
+      Collections.sort(result);//实现有序
+    }
+    return result;
+  }
+}
