@@ -1,0 +1,60 @@
+/*
+public class TreeNode {
+    int val = 0;
+    TreeNode left = null;
+    TreeNode right = null;
+
+    public TreeNode(int val) {
+        this.val = val;
+
+    }
+
+}
+*/
+import java.util.*;
+public class Solution {
+    int num=0;
+    TreeNode KthNode(TreeNode pRoot, int k)
+    {
+        if(pRoot!=null){
+            TreeNode node=KthNode(pRoot.left,k);
+            if(node!=null){
+                return node;
+            }
+            num++;
+            if(k==num){//不能使用k--判断，会影响
+                return pRoot;
+            }
+            node=KthNode(pRoot.right,k);
+            if(node!=null){
+                return node;
+            }
+        }
+        return null;
+        
+    }
+    TreeNode KthNode2(TreeNode pRoot, int k)
+    {
+        if(pRoot==null||k<=0){
+            return null;
+        }
+        TreeNode cur=pRoot;
+        Stack<TreeNode> st=new Stack<>();
+        while(cur!=null||!st.empty()){
+            while(cur!=null){
+                st.push(cur);
+                cur=cur.left;
+            }
+            if(!st.empty()){
+                cur=st.pop();
+                k--;
+                if(k==0){
+                    return cur;
+                }
+                cur=cur.right;
+            }
+             
+        }
+        return null;
+    }
+}
