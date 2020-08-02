@@ -1,0 +1,52 @@
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        List<Integer> res=new ArrayList<>();
+        int n=nums.length;
+        if(nums==null||n==0){
+            return res;
+        }
+        //超过1/3的数字，结果不会超过两个数字
+        int k=0,kn=0;
+        int k1=0,kn1=0;
+        for(int a:nums){
+            if(k==a){
+                kn++;
+                continue;
+            }
+            if(k1==a){
+                kn1++;
+                continue;
+            }
+            if(kn==0){
+                k=a;
+                kn++;
+                continue;
+            }
+            if(kn1==0){
+                k1=a;
+                kn1++;
+                continue;
+            }
+            kn--;
+            kn1--;
+        }
+        //确保选出的两个数符合条件，可能出现没有的状况或只有一个
+        kn=kn1=0;
+        for(int b:nums){
+            if(k==b){
+                kn++;
+                continue;
+            }
+            if(k1==b){
+                kn1++;
+            }
+        }
+        if(kn > n/3){
+            res.add(k);
+        }
+        if(kn1 > n/3){
+            res.add(k1);
+        }
+        return res;
+    }
+}
