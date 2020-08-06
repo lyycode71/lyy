@@ -1,0 +1,47 @@
+class Solution {
+    List<String> wor=new ArrayList<>();
+    Map<String,Integer> ma=new HashMap<>();
+    public List<List<Integer>> palindromePairs(String[] words) {
+        int n=words.length;
+        for(int i=0;i<n;i++){
+            wor.add(new StringBuffer(words[i]).reverse().toString());
+            ma.put(wor.get(i),i);
+        }
+        List<List<Integer>> res=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            String s=words[i];
+            int m=s.length();
+            if(m==0){
+                continue;
+            }
+            for(int j=0;j<=m;j++){
+                if(isP(s,j,m-1)){//与其左边相同，构造回文
+                    int left=find(s,0,j-1);
+                    if(left!=-1&&left!=i){
+                        res.add(Arrays.asList(i,left));
+                    }
+                }
+                if(j!=0&&isP(s,0,j-1)){//与其右边相同，构造回文
+                    int right=find(s,j,m-1);
+                    if(right!=-1&&right!=i){
+                        res.add(Arrays.asList(right,i));
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    public boolean isP(String s,int i,int j){
+        while(i<=j){
+            if(s.charAt(i)!=s.charAt(j)){
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+    public int find(String s,int i,int j){
+        return ma.getOrDefault(s.substring(i, j + 1), -1);
+    }
+}
