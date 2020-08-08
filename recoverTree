@@ -1,0 +1,41 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private TreeNode pre=null;
+    private TreeNode t1=null;
+    private TreeNode t2=null;
+    public void recoverTree(TreeNode root) {
+        inOrder(root);
+        int t=t1.val;
+        t1.val=t2.val;
+        t2.val=t;
+    }
+    public void inOrder(TreeNode root){//中序应为有序
+        if(root==null){return;}
+        inOrder(root.left);
+        if(pre!=null){//不符合中序升序的记录
+            if(root.val<pre.val&&t1==null){
+                t1=pre;
+                t2=root;
+            }
+            if(root.val<pre.val&&t2!=null){
+                t2=root;
+            }
+        }
+        pre=root;
+        inOrder(root.right);
+    }
+}
