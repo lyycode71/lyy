@@ -1,0 +1,60 @@
+class Solution {
+    public String shortestPalindrome(String s) {//暴力法，时间复杂度过高
+        int n=s.length();
+        if(n==0||s==null){
+            return "";
+        }
+        String k=s;
+        for(int i=n-1;i>=0;i--){
+            if(isP(s,0,i)){
+                if(i==n-1){
+                    return s;
+                }
+                for(int j=i+1;j<n;j++){
+                    k=s.charAt(j)+k;
+                }
+                break;
+            }
+        }
+        return k;
+    }
+    public boolean isP(String s,int b,int e){
+        while(b<e){
+            if(s.charAt(b)!=s.charAt(e)){
+                return false;
+            }else{
+                b++;
+                e--; 
+            }
+            
+        }
+        return true;
+    }
+    //标记位置处理
+    public String shortestPalindrome2(String s) {
+    String ss = s + '#' + new StringBuilder(s).reverse();
+    int max = getLastNext(ss);
+    return new StringBuilder(s.substring(max)).reverse() + s;
+    }
+
+    //返回 next 数组的最后一个值
+    public int getLastNext(String s) {
+        int n = s.length();
+        char[] c = s.toCharArray();
+        int[] next = new int[n + 1];
+        next[0] = -1;
+        next[1] = 0;
+        int k = 0;
+        int i = 2;
+        while (i <= n) {
+            if (k == -1 || c[i - 1] == c[k]) {
+                next[i] = k + 1;
+                k++;
+                i++;
+            } else {
+                k = next[k];
+            }
+        }
+        return next[n];
+    }
+}
