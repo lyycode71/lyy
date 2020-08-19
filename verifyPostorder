@@ -1,0 +1,22 @@
+class Solution {
+    public boolean verifyPostorder(int[] postorder) {
+        if(postorder.length<2)return true;
+        return verify(postorder,0,postorder.length-1);
+    }
+    public boolean verify(int[] postorder,int left,int right){
+        if(left>=right)return true;
+        int rv=postorder[right];
+        int k=left;
+        //当前区域找到大于根结点的为右子树部分
+        while(k<right&&postorder[k]<rv){
+            k++;
+        }
+        //右子树部分符合都大于根否则不符合
+        for(int i=k;i<right;i++){
+            if(postorder[i]<rv) return false;
+        }
+        if(!verify(postorder,left,k-1))return false;//检查左子树
+        if(!verify(postorder,k,right-1))return false;//检查右子树
+        return true;
+    }
+}
