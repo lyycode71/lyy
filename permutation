@@ -1,0 +1,28 @@
+class Solution {
+    public String[] permutation(String s) {
+        List<String> res=new ArrayList<>();
+        if(s==null||s.length()==0){return null;}
+        find(res,0,s.toCharArray());
+        return res.toArray(new String[res.size()]);
+    }
+    private void swap(char[] arr,int i,int j){
+        char k=arr[i];
+        arr[i]=arr[j];
+        arr[j]=k;
+    }
+    private void find(List<String> res,int n,char[] c){
+        if(n==c.length-1){   
+            res.add(new String(c));
+            return;
+        }
+        //防止重复
+        Set<Character> set=new HashSet<>();
+        for(int i=n;i<c.length;i++){
+            if(set.contains(c[i]))continue;//减枝
+            set.add(c[i]);
+            swap(c,n,i);
+            find(res,n+1,c);
+            swap(c,n,i);//返回原char[]
+        }
+    }
+}
